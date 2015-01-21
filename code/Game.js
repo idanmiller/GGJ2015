@@ -28,15 +28,24 @@ BasicGame.Game = function (game) {
 BasicGame.Game.prototype = {
 
     create: function () {
+        // Create initial bacteria
+
+        // Start and init emitter
 
         //  Honestly, just about anything could go here. It's YOUR game after all. Eat your heart out!
 
     },
 
     update: function () {
+        // Check controls, update bacteria movement
 
-        //  Honestly, just about anything could go here. It's YOUR game after all. Eat your heart out!
+        // Move all entities
 
+        // Check walls collision
+
+        // Check bacteria and macrofag collision
+
+        // Check game end: no bacterias, 
     },
 
     quitGame: function (pointer) {
