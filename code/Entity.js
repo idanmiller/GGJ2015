@@ -1,5 +1,5 @@
 Entity = function(game, x, y, resource, collisionRadius) {
-    Phaser.Sprite.call(this, game, game.x, game.y, resource);
+    Phaser.Sprite.call(this, game, x, y, resource);
     this.collisionRadius = collisionRadius;
 };
 
