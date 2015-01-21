@@ -1,13 +1,17 @@
-BasicGame.Entity = function() {
-
+Entity = function(game, x, y, resource, collisionRadius) {
+    Phaser.Sprite.call(this, game, game.x, game.y, resource);
+    this.collisionRadius = collisionRadius;
 };
 
-BasicGame.Entity.prototype = {
+Entity.prototype = Object.create(Phaser.Sprite.prototype);
+Entity.prototype.constructor = Entity;
 
-	init: function(x, y) {
-		this.x = x;
-		this.y = y;
-	},
+Entity.prototype = {
 
+	getDistance: function(otherEntity) {
+		var dx = otherEntity.x - this.x;
+        var dy = otherEntity.y - this.y;
+        return Math.sqrt(dx * dx + dy * dy);
+	}
 
-} 
+}; 
