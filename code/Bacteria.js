@@ -7,8 +7,9 @@ Bacteria = function(game, config, x, y, resource) {
     CircularEntity.call(this, game, config, x, y, resource);
     this.game = game;
     this.config = config;
-    this.resetMovementParameters();
+    this.resource = resource;
     this.receptorLevel = 0;
+    this.resetMovementParameters();
 };
 
 Bacteria.prototype = Object.create(CircularEntity.prototype);
@@ -24,14 +25,20 @@ Bacteria.prototype.resetMovementParameters = function() {
 Bacteria.prototype.acquireReceptor = function() {
 	this.receptorLevel++;
 	var receptorResource = "receptor_" + this.receptorLevel;
-	this.addChild(this.game.make.sprite(this.width/2-this.width/4, -this.height/2-this.height/8, receptorResource))
+	this.addChild(this.game.make.sprite(this.width/2-this.width/4, -this.height/2-this.height/7.5, receptorResource))
 },
 
-Bacteria.prototype.split = function() {
-	var first  = new Bacteria(this.game, this.x, this.y-20, this.key, this.collisionRadius);
-	var second = new Bacteria(this.game, this.x, this.y+20, this.key, this.collisionRadius);
+Bacteria.prototype.split = function(stopFunction, context) {
+	var splitter = this.game.add.sprite(this.x, this.y, 'bacteria_split');
+	var animation = splitter.animations.add('bacteria_split');
+	splitter.animations.play('bacteria_split', 10, false);
+	animation.onComplete.add(stopFunction, context);
+
+	var first  = new Bacteria(this.game, this.config, this.x, this.y-40, this.resource);
+	var second = new Bacteria(this.game, this.config, this.x, this.y+40, this.resource);
 	first.scale.setTo(0.8, 0.8);
 	second.scale.setTo(0.8, 0.8);
+
 	return [first, second];
 };
 

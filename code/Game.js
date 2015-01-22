@@ -156,13 +156,25 @@ BasicGame.Game.prototype = {
         this.newBacterias = [];
         for (var i = 0; i < this.bacterias.length; i++) {            
             var bacteria = this.bacterias[i];
-            var newBacterias = bacteria.split();
+            this.newBacterias = bacteria.split(this.afterSplitAnimation, this);
             bacteria.kill();
 
-            for (var j = 0; j < newBacterias.length; j++) {
-                this.game.add.existing(newBacterias[j]);
-                this.newBacterias.push(newBacterias[j]);
-            }
+            /*for (var j = 0; j < newBacterias.length; j++) {
+                var newBacteria = newBacterias[j];
+                this.game.add.existing(newBacteria);
+                newBacteria.animations.add('bacteria_idle');
+                newBacteria.animations.play('bacteria_idle', 10, true);
+                this.newBacterias.push(newBacteria);
+            }*/
+        }
+    },
+
+    afterSplitAnimation: function() {
+        for (var j = 0; j < this.newBacterias.length; j++) {
+            var newBacteria = this.newBacterias[j];
+            this.game.add.existing(newBacteria);
+            newBacteria.animations.add('bacteria_idle');
+            newBacteria.animations.play('bacteria_idle', 10, true);
         }
 
         this.bacterias = this.newBacterias;
