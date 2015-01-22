@@ -42,9 +42,14 @@ BasicGame.Game.prototype = {
         this.bacterias = [];
         this.macrophages = [];
 
-        //this.game.add.sprite(0, 0, "background");
+           //this.game.add.sprite(0, 0, "background");
         this.bgtile = this.game.add.tileSprite(960, 0, 1920, 600, 'background');
         this.bgtile.x =0;
+
+        var dialog = new Dialog(this.game, this.config, dialogFrame);
+        this.game.add.existing(dialog);
+
+
         var bacteria = new Bacteria(this.game, this.config, 100, 100, "bacteria_idle");
         bacteria.animations.add('bacteria_idle');
         bacteria.animations.play('bacteria_idle', 10, true);
@@ -56,9 +61,10 @@ BasicGame.Game.prototype = {
         // TEMP just emit a macrophage every 3 seconds
         //this.game.time.events.loop(Phaser.Timer.SECOND * 3, this.addMacrophage, this);
         //this.game.time.events.loop(Phaser.Timer.SECOND * 3, this.addReceptor, this);
+
         this.game.time.events.loop(Phaser.Timer.SECOND * 30, this.addScore, this);
-        this.music = this.add.audio("gameMusic");
-        this.music.play();
+        music = this.add.audio('gameMusic',1,true);
+        music.play('',0,1,true);
     },
 
     addScore: function() {
@@ -100,12 +106,12 @@ BasicGame.Game.prototype = {
         var cursors = this.game.input.keyboard.createCursorKeys();
 
         if (this.isDeciding) {
-            if (this.game.input.keyboard.isDown(Phaser.Keyboard.Q)) {
+            if (this.game.input.keyboard.isDown(Phaser.Keyboard.W)) {
                 this.dimsissDecisionDialog();
                 this.splitAllBacterias();
             }
 
-            if (this.game.input.keyboard.isDown(Phaser.Keyboard.W)) {
+            if (this.game.input.keyboard.isDown(Phaser.Keyboard.Q)) {
                 this.dimsissDecisionDialog();
                 this.acquireReceptor();
             }
@@ -172,13 +178,18 @@ BasicGame.Game.prototype = {
         this.newBacterias = [];
         for (var i = 0; i < this.bacterias.length; i++) {            
             var bacteria = this.bacterias[i];
-            var newBacterias = bacteria.split();
+            this.newBacterias = bacteria.split(this.afterSplitAnimation, this);
             bacteria.kill();
+        }
+    },
 
-            for (var j = 0; j < newBacterias.length; j++) {
-                this.game.add.existing(newBacterias[j]);
-                this.newBacterias.push(newBacterias[j]);
-            }
+    afterSplitAnimation: function(splitter) {
+        splitter.kill();
+        for (var j = 0; j < this.newBacterias.length; j++) {
+            var newBacteria = this.newBacterias[j];
+            this.game.add.existing(newBacteria);
+            newBacteria.animations.add('bacteria_idle');
+            newBacteria.animations.play('bacteria_idle', 10, true);
         }
 
         this.bacterias = this.newBacterias;

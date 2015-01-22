@@ -7,8 +7,9 @@ Bacteria = function(game, config, x, y, resource) {
     CircularEntity.call(this, game, config, x, y, resource);
     this.game = game;
     this.config = config;
-    this.resetMovementParameters();
+    this.resource = resource;
     this.receptorLevel = 0;
+    this.resetMovementParameters();
 };
 
 Bacteria.prototype = Object.create(CircularEntity.prototype);
@@ -23,16 +24,31 @@ Bacteria.prototype.resetMovementParameters = function() {
 
 Bacteria.prototype.acquireReceptor = function() {
 	this.receptorLevel++;
-	var receptorResource = "receptor_" + this.receptorLevel;
-	this.addChild(this.game.make.sprite(this.width/2-this.width/4, -this.height/2-this.height/8, receptorResource))
+	this.receptorResource = "receptor_" + this.receptorLevel;
+	this.addChild(this.game.make.sprite(this.width/4, -this.height/2-this.height/7.5, this.receptorResource ))
 },
 
-Bacteria.prototype.split = function() {
-	var first  = new Bacteria(this.game, this.x, this.y-20, this.key, this.collisionRadius);
-	var second = new Bacteria(this.game, this.x, this.y+20, this.key, this.collisionRadius);
-	first.scale.setTo(0.8, 0.8);
-	second.scale.setTo(0.8, 0.8);
+Bacteria.prototype.split = function(stopFunction, context) {
+	var scale = Math.max(this.scale.x-0.1, 0.3);
+	var splitter = this.game.add.sprite(this.x, this.y, 'bacteria_split');
+	splitter.scale.setTo(scale, scale);
+	var animation = splitter.animations.add('bacteria_split');
+	splitter.animations.play('bacteria_split', 10, false);
+	animation.onComplete.add(stopFunction, context, splitter);
+
+	var first  = new Bacteria(this.game, this.config, splitter.x+60, splitter.y+65, this.resource);
+	var second = new Bacteria(this.game, this.config, splitter.x+60, splitter.y+145, this.resource);
+	this.inheritReceptors(this, first);
+	this.inheritReceptors(this, second);
+	first.scale.setTo(scale, scale);
+	second.scale.setTo(scale, scale);
+
 	return [first, second];
+};
+
+Bacteria.prototype.inheritReceptors = function(src, dest) {
+	dest.receptorLevel = src.receptorLevel;
+	dest.addChild(this.game.make.sprite(this.width/4, -this.height/2-this.height/7.5, src.receptorResource));
 };
 
 Bacteria.prototype.calculateAcceleration = function (cursors) {
