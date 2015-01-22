@@ -1,5 +1,6 @@
 CircularEntity = function(game, config, x, y, resource) {
     Phaser.Sprite.call(this, game, x, y, resource);
+    this.anchor.setTo(0.5, 0.5);
 };
 
 CircularEntity.prototype = Object.create(Phaser.Sprite.prototype);

@@ -8,7 +8,7 @@ Emitter = function(game,gameContext,config) {
     this.gameContext = gameContext;
     this.numberOfMacrophages = 0;
     this.macrophagesCounter = 0;
-
+    this.macrophagesPropabiltyMultiplayer = 1;
 };
 
 Emitter.prototype = Object.create(Phaser.Sprite.prototype);
@@ -29,14 +29,23 @@ Emitter.prototype.emmitMacrophage = function(score) {
     var secondsBeforeCreation = 10;
     var fps = this.fps;
     var factor  = (secondsBeforeCreation*fps) ;
-    var lottoResult = Math.floor(Math.random() * factor) + 1;
+    if(this.numberOfMacrophages<=score){  //add refrance to level
+        this.macrophagesPropabiltyMultiplayer += 0.002;
+    }
+    var lottoResult = Math.floor(Math.random() * factor)*this.macrophagesPropabiltyMultiplayer + 1;
     if (lottoResult >= factor-1){
+        console.log("Score:"+score);
        this.createMacrophage();
     }
 };
 
 Emitter.prototype.createMacrophage = function() {
+
     console.log("Emitter is creating a Macrophage");
+    console.log("Propability: "+this.macrophagesPropabiltyMultiplayer);
+    console.log("Macrophage: "+this.numberOfMacrophages);
+    console.log("Macrophage: "+this.numberOfMacrophages);
+    this.macrophagesPropabiltyMultiplayer = 1;
     this.macrophagesCounter++;
     this.numberOfMacrophages++;
     var macro = new Macrophage(this.game,this.config,0,0,this.config.strategies.default,this);
@@ -46,6 +55,5 @@ Emitter.prototype.createMacrophage = function() {
 
 Emitter.prototype.killMacrophage = function(macro) {
     console.log("Killing Macrophage");
-    macro.kill();
     this.numberOfMacrophages--;
 };
