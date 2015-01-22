@@ -11,3 +11,8 @@ CircularEntity.prototype.getDistance = function(otherCircularEntity) {
     var dy = otherCircularEntity.y - this.y;
     return Math.sqrt(dx * dx + dy * dy);
 }; 
+
+CircularEntity.prototype.collidesWith = function(otherCircularEntity) {
+	var dist = this.getDistance(otherCircularEntity);
+	return (dist < this.collisionRadius + otherCircularEntity.collisionRadius);
+}; 
