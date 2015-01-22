@@ -36,9 +36,19 @@ BasicGame.Game.prototype = {
         this.bacterias.push(bacteria);
 
         // Start and init emitter
+        // TEMP just emit a macrophage every 3 seconds
+        this.game.time.events.loop(Phaser.Timer.SECOND * 3, this.addMacrophage, this);
 
         //  Honestly, just about anything could go here. It's YOUR game after all. Eat your heart out!
 
+    },
+
+    addMacrophage: function() {
+        var bacteria = this.bacterias[Math.floor(Math.random()*this.bacterias.length)];
+        var macrophage = new Macrophage(this.game, 700, 100, "macrophage", 50, 140);
+        this.game.add.existing(macrophage);
+
+        macrophage.findTarget(bacteria);
     },
 
     update: function () {
@@ -72,7 +82,6 @@ BasicGame.Game.prototype = {
         }
 
         if (this.game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
-            console.log("HERERERER");
             this.newBacterias = [];
             for (var i = 0; i < this.bacterias.length; i++) {            
                 var bacteria = this.bacterias[i];
