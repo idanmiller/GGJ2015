@@ -69,6 +69,11 @@ BasicGame.Preloader.prototype = {
 		//this.load.atlas('playButton', 'images/play_button.png', 'images/play_button.json');
 		this.load.audio('gameMusic', ['audio/jerms_game.mp3']);
 		this.load.audio('menuMusic', ['audio/menu_music.mp3']);
+		this.load.audio('powerupAppear', ['audio/power_up_appear.mp3']);
+		this.load.audio('powerupConfirm', ['audio/power_up_confirm.mp3']);
+		this.load.audio('powerupTaken', ['audio/power_up_taken.mp3']);
+		this.load.audio('split', ['audio/split.mp3']);
+
 		//this.load.bitmapFont('caslon', 'fonts/caslon.png', 'fonts/caslon.xml');
 		//	+ lots of other required assets here
 

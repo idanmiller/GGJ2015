@@ -94,6 +94,9 @@ BasicGame.Game.prototype = {
     addReceptor: function(receptor) {
         this.game.add.existing(receptor);
         this.receptor = receptor;
+
+        var sound = this.game.add.audio('powerupAppear');
+        sound.play();
     },
 
     showDecisionDialog: function(level) {
@@ -165,6 +168,9 @@ BasicGame.Game.prototype = {
                             this.emitter.numberOfReceptors--;
                             this.receptor = null;
                             this.showDecisionDialog(bacteria.receptorLevel);
+
+                            var sound = this.game.add.audio('powerupTaken');
+                            sound.play();
                         }
                     }
                 }
@@ -218,6 +224,9 @@ BasicGame.Game.prototype = {
         for (var i = 0; i < this.bacterias.length; i++) {
             this.bacterias[i].acquireReceptor();
         }
+
+        var sound = this.game.add.audio('powerupConfirm');
+        sound.play();
     },
 
     quitGame: function (pointer) {

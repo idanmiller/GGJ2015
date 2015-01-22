@@ -49,6 +49,9 @@ Bacteria.prototype.split = function(stopFunction, context) {
 	first.scale.setTo(scale, scale);
 	second.scale.setTo(scale, scale);
 
+	var sound = this.game.add.audio('split');
+    sound.play();
+
 	return [first, second];
 };
 
