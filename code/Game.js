@@ -128,6 +128,8 @@ BasicGame.Game.prototype = {
                 }
             }
 
+            //console.log("x:" +this.game.input.mousePointer.x+",y:"+this.game.input.mousePointer.y);
+
             // Check bacteria and receptor collision
 
             // Check game end: no bacterias, or enough bacterias
