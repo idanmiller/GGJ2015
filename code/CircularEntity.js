@@ -1,4 +1,4 @@
-CircularEntity = function(game, x, y, resource, collisionRadius) {
+CircularEntity = function(game, config, x, y, resource) {
     Phaser.Sprite.call(this, game, x, y, resource);
     this.collisionRadius = collisionRadius;
 };

@@ -1,6 +1,6 @@
-Bacteria = function(game, x, y, resource, collisionRadius) {
+Bacteria = function(game, config, x, y, resource) {
 	this.type = "Bacteria";
-    CircularEntity.call(this, game, x, y, resource, collisionRadius);
+    CircularEntity.call(this, game, x, y, resource);
 };
 
 Bacteria.prototype = Object.create(CircularEntity.prototype);

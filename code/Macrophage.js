@@ -1,4 +1,4 @@
-Macrophage = function(game, x, y, resource, collisionRadius, velocity) {
+Macrophage = function(game, config, x, y, resource, strategy, startingPosition) {
 	this.type = "Macrophage";
     CircularEntity.call(this, game, x, y, resource, collisionRadius);
     this.velocity = velocity;
@@ -16,6 +16,7 @@ Macrophage.prototype.findTarget = function(targetBacteria) {
 
 Macrophage.prototype.update = function() {
 	var angle = Phaser.Math.angleBetweenPoints(this, this.targetBacteria);
-	this.x -= Math.cos(angle) * this.velocity * 1/60;
+	// this.x -= Math.cos(angle) * this.velocity * 1/60;
+	this.x -= this.velocity/100;
 	this.y += Math.sin(angle) * this.velocity * 1/60;
 };
