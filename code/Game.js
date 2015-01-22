@@ -23,7 +23,7 @@ BasicGame.Game = function (game) {
     //GameJame Init
     this.FPS = 60;
     this.config = {fps:this.FPS, strategies:{ default :'Default',chase:'Chase'} };
-    //this.emitter = new Emitter(game,this,this.config);
+    this.emitter = new Emitter(game,this,this.config);
 
     //  You can use any of these from any function within this State.
     //  But do consider them as being 'reserved words', i.e. don't create a property for your own game called "world" or you'll over-write the world reference.
@@ -47,7 +47,7 @@ BasicGame.Game.prototype = {
         // Start and init emitter
         // TEMP just emit a macrophage every 3 seconds
         //this.game.time.events.loop(Phaser.Timer.SECOND * 3, this.addMacrophage, this);
-        this.game.time.events.loop(Phaser.Timer.SECOND * 3, this.addReceptor, this);
+        //this.game.time.events.loop(Phaser.Timer.SECOND * 3, this.addReceptor, this);
 
         this.music = this.add.audio("gameMusic");
         this.music.play();
@@ -99,7 +99,7 @@ BasicGame.Game.prototype = {
 
             //emit macrophage
             var score = 1;
-            //this.emitter.updateProgress(score);
+            this.emitter.updateProgress(score);
 
             // Move all entities
 
