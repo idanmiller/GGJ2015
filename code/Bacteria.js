@@ -6,9 +6,9 @@ var BACTERIA_SPLIT_OFFSET_Y = 80;
 var BACTERIA_SPLIT_DISTANCE = 100;
 var BACTERIA_RADIUS = 50;
 
-Bacteria = function(game, config, x, y, resource) {
+Bacteria = function(game, config, x, y, resource,scale) {
 	this.type = "Bacteria";
-    CircularEntity.call(this, game, config, x, y, resource);
+    CircularEntity.call(this, game, config, x, y, resource,scale);
     this.game = game;
     this.config = config;
     this.resource = resource;
@@ -38,7 +38,9 @@ Bacteria.prototype.acquireReceptor = function() {
 },
 
 Bacteria.prototype.split = function(stopFunction, context) {
-	var scale = Math.max(this.scale.x-0.1, 0.3);
+	//var scale = Math.max(this.scale.x-0.1, 0.3);
+	ScaleTarget = Math.max(this.scale.x-0.1, 0.3);
+	var scale = ScaleTarget;
 	var splitter = this.game.add.sprite(this.x, this.y, 'bacteria_split');
 	splitter.scale.setTo(scale, scale);
 	var animation = splitter.animations.add('bacteria_split');
@@ -48,12 +50,15 @@ Bacteria.prototype.split = function(stopFunction, context) {
 	var offsetX = BACTERIA_SPLIT_OFFSET_X * scale;
 	var offsetY = BACTERIA_SPLIT_OFFSET_Y * scale;
 	var distance = BACTERIA_SPLIT_DISTANCE * scale;
-	var first  = new Bacteria(this.game, this.config, splitter.x+offsetX, splitter.y+offsetY, this.resource);
-	var second = new Bacteria(this.game, this.config, splitter.x+offsetX, splitter.y+offsetY+distance, this.resource);
+	var first  = new Bacteria(this.game, this.config, splitter.x+offsetX, splitter.y+offsetY, this.resource,scale);
+	var second = new Bacteria(this.game, this.config, splitter.x+offsetX, splitter.y+offsetY+distance, this.resource,scale);
 	this.inheritReceptors(this, first);
 	this.inheritReceptors(this, second);
 	first.scale.setTo(scale, scale);
-	second.scale.setTo(scale, scale);
+	first.scale.setTo(scale, scale);
+
+			//first.scale.setTo(scale, scale);
+	//second.scale.setTo(scale, scale);
 
 	var sound = this.game.add.audio('split');
     sound.play();
@@ -102,12 +107,14 @@ Bacteria.prototype.calculateVelocity = function (cursors) {
         //  Move down
         this.velocityY = BACTERIA_BASE_VELOCITY + this.accelerationY;   
     }
+
     if (!cursors.left.isDown && !cursors.right.isDown && !cursors.up.isDown && !cursors.down.isDown) {
     	this.resetMovementParameters();
     }
 };
 
-Bacteria.prototype.update = function() {	
+Bacteria.prototype.update = function() {
+	CircularEntity.prototype.update.call(this);
 	var x = expectedX = this.x + 1 / this.config.fps * this.velocityX;
 	var y = expectedY = this.y + 1 / this.config.fps * this.velocityY;
 	if (expectedX > this.game.width - this.width/2) {
@@ -124,4 +131,7 @@ Bacteria.prototype.update = function() {
 	}
 	this.x = x;
 	this.y = y;
+
+
+
 };

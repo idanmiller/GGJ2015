@@ -1,4 +1,8 @@
-var GAME_PUASED = false;
+//Globals
+var GamePaused = false;
+var FadeTarget  = 1;
+var ScaleTarget  = 1;
+var SacleFactor  = 0.001;
 
 BasicGame.Game = function (game) {
 
@@ -26,6 +30,7 @@ BasicGame.Game = function (game) {
     this.FPS = 60;
     this.config = {fps:this.FPS, strategies:{ default :'Default',chase:'Chase'} };
     this.emitter = new Emitter(game,this,this.config);
+    this.entities = [];
     this.lostGame = false;
 
     //  You can use any of these from any function within this State.
@@ -45,15 +50,12 @@ BasicGame.Game.prototype = {
 
         this.game.input.keyboard.addKeyCapture(Phaser.Keyboard.SPACEBAR);
 
-        //this.game.add.sprite(0, 0, "background");
-           //this.game.add.sprite(0, 0, "background");
         this.bgtile = this.game.add.tileSprite(960, 0, 1920, 600, 'background');
         this.bgtile.x =0;
 
         this.startScreen = new Dialog(this.game, this.config, "startDialog");
         this.game.add.existing(this.startScreen);
 
-        this.game.time.events.loop(Phaser.Timer.SECOND * 25, this.addScore, this);
         this.music = this.add.audio('menuMusic',1,true);
         this.music.play('',0,1,true);
     },
@@ -73,7 +75,7 @@ BasicGame.Game.prototype = {
         //this.game.time.events.loop(Phaser.Timer.SECOND * 3, this.addReceptor, this);
 
         this.music.stop();
-        this.game.time.events.loop(Phaser.Timer.SECOND * 30, this.addScore, this);
+        this.game.time.events.loop(Phaser.Timer.SECOND * 15, this.addScore, this);
         this.music = this.add.audio('gameMusic',1,true);
         this.music.play('',0,1,true);
     },
@@ -84,7 +86,6 @@ BasicGame.Game.prototype = {
 
     addMacrophage: function(macrophage) {
         var bacteria = this.bacterias[Math.floor(Math.random()*this.bacterias.length)];
-        macrophage.collisionRadius = 80;
         this.game.add.existing(macrophage);
         macrophage.findTarget(bacteria);
         this.macrophages.push(macrophage);

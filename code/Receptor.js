@@ -1,8 +1,9 @@
 Receptor = function(game, config, x, y,   startingPosition) {
 	this.type = "Receptor";
-    CircularEntity.call(this, game, config, x, y, "receptor");
+    CircularEntity.call(this, game, config, x, y, "receptor",0);
     this.collisionRadius = 40;
     this.game = game;
+    this.RADIUS = 40;
     this.alpha = 0;
     this.ignoreCollision = true;
 
