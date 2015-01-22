@@ -51,7 +51,7 @@ BasicGame.Preloader.prototype = {
 		this.load.image('macrophage_receptor_8', 'images/macrophage_receptor_8.png');
 		this.load.image('macrophage_receptor_9', 'images/macrophage_receptor_9.png');
 		this.load.image('macrophage_receptor_10', 'images/macrophage_receptor_10.png');
-		this.load.image('background', 'images/background.png');
+		this.load.image('background', 'images/background.jpg');
 		this.load.image('you_won', 'images/you_won.png');
 		this.load.image('you_lost', 'images/you_lost.png');
 		this.load.image('split_button', 'images/selection_split_normal.png');

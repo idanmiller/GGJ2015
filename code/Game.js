@@ -45,7 +45,10 @@ BasicGame.Game.prototype = {
 
         this.game.input.keyboard.addKeyCapture(Phaser.Keyboard.SPACEBAR);
 
-        this.game.add.sprite(0, 0, "background");
+        //this.game.add.sprite(0, 0, "background");
+           //this.game.add.sprite(0, 0, "background");
+        this.bgtile = this.game.add.tileSprite(960, 0, 1920, 600, 'background');
+        this.bgtile.x =0;
 
         this.startScreen = new Dialog(this.game, this.config, "startDialog");
         this.game.add.existing(this.startScreen);
@@ -173,6 +176,14 @@ BasicGame.Game.prototype = {
                     this.gameWon("you_won");
                 }
             }
+
+
+            //move background
+            this.bgtile.x-=0.1;
+            if(this.bgtile.x<=-960){
+                this.bgtile.x=0;
+            }
+            // Check game end: no bacterias, or enough bacterias
         }
     },
 

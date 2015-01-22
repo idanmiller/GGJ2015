@@ -66,7 +66,6 @@ Emitter.prototype.createMacrophage = function(score) {
     this.macrophagesCounter++;
     this.numberOfMacrophages++;
     var receptorLevel = Math.round(Math.min(10,score)* Math.random())+1;
-
     var macro = new Macrophage(this.game,this.config,0,0,this.config.strategies.default,this,receptorLevel);
     macro.id = this.macrophagesCounter;
     this.gameContext.addMacrophage(macro);
