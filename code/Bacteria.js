@@ -21,6 +21,12 @@ Bacteria.prototype.resetMovementParameters = function() {
     this.accelerationY = 0;
 };
 
+Bacteria.prototype.acquireReceptor = function() {
+	this.receptorLevel++;
+	var receptorResource = "receptor_" + this.receptorLevel;
+	this.addChild(this.game.make.sprite(this.width/2-this.width/4, -this.height/2-this.height/8, receptorResource))
+},
+
 Bacteria.prototype.split = function() {
 	var first  = new Bacteria(this.game, this.x, this.y-20, this.key, this.collisionRadius);
 	var second = new Bacteria(this.game, this.x, this.y+20, this.key, this.collisionRadius);
