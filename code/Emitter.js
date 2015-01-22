@@ -4,6 +4,7 @@ Emitter = function(game,config) {
     this.stepCount=0;
     this.game = game;
     this.fps = config.fps;
+    this.config =this.config;
 };
 
 Emitter.prototype = Object.create(Phaser.Sprite.prototype);
@@ -31,5 +32,5 @@ Emitter.prototype.emmitMacrophage = function(score) {
 }
 
 Emitter.prototype.createMacrophage = function(score) {
-   var macro = new Macrophage(this.game,0,0,"macrophage",)
+   var macro = new Macrophage(this.game,0,0,"macrophage",this.config.default)
 }
