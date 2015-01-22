@@ -1,4 +1,4 @@
-CircularEntity = function(game, x, y, resource, collisionRadius) {
+CircularEntity = function(game, config, x, y, resource) {
     Phaser.Sprite.call(this, game, x, y, resource);
     this.collisionRadius = collisionRadius;
 };
@@ -10,4 +10,9 @@ CircularEntity.prototype.getDistance = function(otherCircularEntity) {
 	var dx = otherCircularEntity.x - this.x;
     var dy = otherCircularEntity.y - this.y;
     return Math.sqrt(dx * dx + dy * dy);
+}; 
+
+CircularEntity.prototype.collidesWith = function(otherCircularEntity) {
+	var dist = this.getDistance(otherCircularEntity);
+	return (dist < this.collisionRadius + otherCircularEntity.collisionRadius);
 }; 
