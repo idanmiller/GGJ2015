@@ -19,7 +19,7 @@ BasicGame.Game = function (game) {
     this.particles; //  the particle manager (Phaser.Particles)
     this.physics;   //  the physics manager (Phaser.Physics)
     this.rnd;       //  the repeatable random number generator (Phaser.RandomDataGenerator)
-
+    
     //  You can use any of these from any function within this State.
     //  But do consider them as being 'reserved words', i.e. don't create a property for your own game called "world" or you'll over-write the world reference.
 
@@ -29,8 +29,11 @@ BasicGame.Game.prototype = {
 
     create: function () {
         // Create initial bacteria
+        this.bacterias = [];
+
         var bacteria = new Bacteria(this.game, 100, 100, "bacteria", 50);
-        //this.game.add.existing(bacteria);
+        this.game.add.existing(bacteria);
+        this.bacterias.push(bacteria);
 
         // Start and init emitter
 
@@ -40,6 +43,41 @@ BasicGame.Game.prototype = {
 
     update: function () {
         // Check controls, update bacteria movement
+        cursors = this.game.input.keyboard.createCursorKeys();
+
+        var bacteriaVelocityX = 0;
+        var bacteriaVelocityY = 0;
+        if (cursors.left.isDown)
+        {
+            //  Move to the left
+            bacteriaVelocityX = -150;
+        }
+
+        if (cursors.right.isDown)
+        {
+            //  Move to the right
+            bacteriaVelocityX = 150;   
+        }
+
+        if (cursors.up.isDown)
+        {
+            //  Move up
+            bacteriaVelocityY = -150;   
+        }
+
+        if (cursors.down.isDown)
+        {
+            //  Move down
+            bacteriaVelocityY = 150;   
+        }
+
+        for (var i = 0; i < this.bacterias.length; i++) {
+            this.bacterias[i].velocity = {x: bacteriaVelocityX, y: bacteriaVelocityY};
+
+            // TEMP
+            this.bacterias[i].x = this.bacterias[i].x + 1 / 60 * this.bacterias[i].velocity.x;
+            this.bacterias[i].y = this.bacterias[i].y + 1 / 60 * this.bacterias[i].velocity.y;
+        }
 
         // Move all entities
 
