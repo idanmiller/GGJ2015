@@ -49,11 +49,9 @@ BasicGame.Game.prototype = {
 
     },
 
-    addMacrophage: function() {
+    addMacrophage: function(macrophage) {
         var bacteria = this.bacterias[Math.floor(Math.random()*this.bacterias.length)];
-        var macrophage = new Macrophage(this.game, 700, 100, "macrophage", 50, 140);
         this.game.add.existing(macrophage);
-
         macrophage.findTarget(bacteria);
         this.macrophages.push(macrophage);
     },

@@ -27,10 +27,15 @@ Emitter.prototype.emmitMacrophage = function(score) {
     var factor  = (secondsBeforeCreation*fps) ;
     var lottoResult = Math.floor(Math.random() * factor) + 1;
     if (lottoResult >= factor-1){
-        console.log("create macrophage");
+       this.createMacrophage();
     }
-}
+};
 
-Emitter.prototype.createMacrophage = function(score) {
-   var macro = new Macrophage(this.game,0,0,"macrophage",this.config.default)
-}
+Emitter.prototype.createMacrophage = function() {
+    console.log("Emitter is creating a Macrophage");
+    var macro = new Macrophage(this.game,0,0,"macrophage",this.config.strategies.default);
+    this.game.addMacrophage(macro);
+
+
+
+};
