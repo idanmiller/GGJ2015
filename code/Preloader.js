@@ -25,6 +25,7 @@ BasicGame.Preloader.prototype = {
 		//	Here we load the rest of the assets our game needs.
 		//	As this is just a Project Template I've not provided these assets, swap them for your own.
 		this.load.image('bacteria', 'images/bacteria_0.png');
+		this.load.atlas('bacteria_idle', 'images/bacteria_idle.png', 'bacteria_idle.json' );
 		this.load.image('macrophage', 'images/Macrophage_0.png');
 		this.load.image('dialog', 'images/selection_dialog_frame.png');
 		this.load.image('receptor', 'images/receptor.png');

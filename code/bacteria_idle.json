@@ -1,0 +1,140 @@
+{"frames": [
+
+{
+	"filename": "bacteria_idle_01.png",
+	"frame": {"x":198,"y":2,"w":194,"h":104},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":194,"h":104},
+	"sourceSize": {"w":194,"h":104}
+},
+{
+	"filename": "bacteria_idle_02.png",
+	"frame": {"x":195,"y":108,"w":191,"h":107},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":191,"h":107},
+	"sourceSize": {"w":191,"h":107}
+},
+{
+	"filename": "bacteria_idle_03.png",
+	"frame": {"x":189,"y":217,"w":185,"h":111},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":185,"h":111},
+	"sourceSize": {"w":185,"h":111}
+},
+{
+	"filename": "bacteria_idle_04.png",
+	"frame": {"x":185,"y":330,"w":181,"h":113},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":181,"h":113},
+	"sourceSize": {"w":181,"h":113}
+},
+{
+	"filename": "bacteria_idle_05.png",
+	"frame": {"x":182,"y":445,"w":178,"h":115},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":178,"h":115},
+	"sourceSize": {"w":178,"h":115}
+},
+{
+	"filename": "bacteria_idle_06.png",
+	"frame": {"x":181,"y":683,"w":177,"h":119},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":177,"h":119},
+	"sourceSize": {"w":177,"h":119}
+},
+{
+	"filename": "bacteria_idle_07.png",
+	"frame": {"x":2,"y":684,"w":176,"h":120},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":176,"h":120},
+	"sourceSize": {"w":176,"h":120}
+},
+{
+	"filename": "bacteria_idle_08.png",
+	"frame": {"x":2,"y":562,"w":177,"h":120},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":177,"h":120},
+	"sourceSize": {"w":177,"h":120}
+},
+{
+	"filename": "bacteria_idle_09.png",
+	"frame": {"x":2,"y":806,"w":175,"h":120},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":175,"h":120},
+	"sourceSize": {"w":175,"h":120}
+},
+{
+	"filename": "bacteria_idle_10.png",
+	"frame": {"x":179,"y":806,"w":176,"h":117},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":176,"h":117},
+	"sourceSize": {"w":176,"h":117}
+},
+{
+	"filename": "bacteria_idle_11.png",
+	"frame": {"x":181,"y":562,"w":177,"h":119},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":177,"h":119},
+	"sourceSize": {"w":177,"h":119}
+},
+{
+	"filename": "bacteria_idle_12.png",
+	"frame": {"x":2,"y":445,"w":178,"h":115},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":178,"h":115},
+	"sourceSize": {"w":178,"h":115}
+},
+{
+	"filename": "bacteria_idle_13.png",
+	"frame": {"x":2,"y":330,"w":181,"h":113},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":181,"h":113},
+	"sourceSize": {"w":181,"h":113}
+},
+{
+	"filename": "bacteria_idle_14.png",
+	"frame": {"x":2,"y":217,"w":185,"h":111},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":185,"h":111},
+	"sourceSize": {"w":185,"h":111}
+},
+{
+	"filename": "bacteria_idle_15.png",
+	"frame": {"x":2,"y":108,"w":191,"h":107},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":191,"h":107},
+	"sourceSize": {"w":191,"h":107}
+},
+{
+	"filename": "bacteria_idle_16.png",
+	"frame": {"x":2,"y":2,"w":194,"h":104},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":194,"h":104},
+	"sourceSize": {"w":194,"h":104}
+}],
+"meta": {
+	"app": "http://www.codeandweb.com/texturepacker ",
+	"version": "1.0",
+	"image": "bacteria_idle.png",
+	"format": "RGBA8888",
+	"size": {"w":512,"h":1024},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:4bed57d37a3e4ae5ed58d599ef52b187:6001c355833db19b94341787074bf270:8c01874c2db53429aafe7a1bb2d01a4f$"
+}
+}
