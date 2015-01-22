@@ -171,18 +171,11 @@ BasicGame.Game.prototype = {
             var bacteria = this.bacterias[i];
             this.newBacterias = bacteria.split(this.afterSplitAnimation, this);
             bacteria.kill();
-
-            /*for (var j = 0; j < newBacterias.length; j++) {
-                var newBacteria = newBacterias[j];
-                this.game.add.existing(newBacteria);
-                newBacteria.animations.add('bacteria_idle');
-                newBacteria.animations.play('bacteria_idle', 10, true);
-                this.newBacterias.push(newBacteria);
-            }*/
         }
     },
 
-    afterSplitAnimation: function() {
+    afterSplitAnimation: function(splitter) {
+        splitter.kill();
         for (var j = 0; j < this.newBacterias.length; j++) {
             var newBacteria = this.newBacterias[j];
             this.game.add.existing(newBacteria);
