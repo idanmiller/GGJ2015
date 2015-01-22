@@ -21,12 +21,10 @@ Emitter.prototype.updateLevel = function(score) {
 
 Emitter.prototype.createMacrophage = function(score) {
     var secondsBeforeCreation = 5;
-    var fps = 60;
-    var factor  =  1/(secondsBeforeCreation*fps) ;//fps/this.level;
-    var lottoResult = Math.random();
-    console.log("Factor:"+factor);
-    console.log("Result:"+lottoResult);
-    if (lottoResult<=factor){
-        //alert("create macrophage now");
+    var fps = this.game.time.fps;
+    var factor  = (secondsBeforeCreation*fps) ;
+    var lottoResult = Math.floor(Math.random() * factor) + 1;
+    if (lottoResult >= factor-1){
+        console.log("create macrophage");
     }
 }
