@@ -36,7 +36,9 @@ Bacteria.prototype.acquireReceptor = function() {
 },
 
 Bacteria.prototype.split = function(stopFunction, context) {
-	var scale = Math.max(this.scale.x-0.1, 0.3);
+	//var scale = Math.max(this.scale.x-0.1, 0.3);
+	ScaleTarget = Math.max(this.scale.x-0.1, 0.3);
+	var scale = ScaleTarget;
 	var splitter = this.game.add.sprite(this.x, this.y, 'bacteria_split');
 	splitter.scale.setTo(scale, scale);
 	var animation = splitter.animations.add('bacteria_split');
@@ -97,12 +99,14 @@ Bacteria.prototype.calculateVelocity = function (cursors) {
         //  Move down
         this.velocityY = BACTERIA_BASE_VELOCITY + this.accelerationY;   
     }
+
     if (!cursors.left.isDown && !cursors.right.isDown && !cursors.up.isDown && !cursors.down.isDown) {
     	this.resetMovementParameters();
     }
 };
 
-Bacteria.prototype.update = function() {	
+Bacteria.prototype.update = function() {
+	CircularEntity.prototype.update.call(this);
 	var x = expectedX = this.x + 1 / this.config.fps * this.velocityX;
 	var y = expectedY = this.y + 1 / this.config.fps * this.velocityY;
 	if (expectedX > this.game.width - this.width/2) {
@@ -119,4 +123,7 @@ Bacteria.prototype.update = function() {
 	}
 	this.x = x;
 	this.y = y;
+
+
+
 };

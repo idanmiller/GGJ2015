@@ -10,7 +10,9 @@ Macrophage = function (game, config, x, y, strategy, emitter, receptorLevel) {
     this.emitter = emitter;
     this.radius = 250;
     this.receptorLevel = receptorLevel;
+    this.alpha = 0;
     this.acquireReceptor();
+
 
 };
 
@@ -46,8 +48,8 @@ Macrophage.prototype.acquireReceptor = function() {
 
 
 Macrophage.prototype.update = function () {
-    //var angle = Phaser.Math.angleBetweenPoints(this, this.target);
-    if (this.isDead ||GAME_PUASED ) {
+    CircularEntity.prototype.update.call(this);
+    if (this.isDead ||GamePaused ) {
         return; //horrible workaround!
     }
 

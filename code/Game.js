@@ -1,4 +1,8 @@
-var GAME_PUASED = false;
+//Globals
+var GamePaused = false;
+var FadeTarget  = 1;
+var ScaleTarget  = 1;
+var SacleFactor  = 0.001;
 
 BasicGame.Game = function (game) {
 
@@ -26,6 +30,7 @@ BasicGame.Game = function (game) {
     this.FPS = 60;
     this.config = {fps:this.FPS, strategies:{ default :'Default',chase:'Chase'} };
     this.emitter = new Emitter(game,this,this.config);
+    this.entities = [];
     this.lostGame = false;
 
     //  You can use any of these from any function within this State.
@@ -45,8 +50,6 @@ BasicGame.Game.prototype = {
 
         this.game.input.keyboard.addKeyCapture(Phaser.Keyboard.SPACEBAR);
 
-        //this.game.add.sprite(0, 0, "background");
-           //this.game.add.sprite(0, 0, "background");
         this.bgtile = this.game.add.tileSprite(960, 0, 1920, 600, 'background');
         this.bgtile.x =0;
 
