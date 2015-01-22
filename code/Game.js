@@ -1,4 +1,4 @@
-var gamePaused = false;
+var GAME_PUASED = false;
 
 BasicGame.Game = function (game) {
 
@@ -74,6 +74,7 @@ BasicGame.Game.prototype = {
 
     addReceptor: function(receptor) {
         this.game.add.existing(receptor);
+        this.receptor = receptor;
     },
 
     showDecisionDialog: function(level) {
@@ -126,18 +127,17 @@ BasicGame.Game.prototype = {
 
                 for (var j = 0; j < this.macrophages.length; j++) {
                     var macrophage = this.macrophages[j];
-
-                    if (bacteria.collidesWith(macrophage)) {
+                    if (bacteria.collidesWith(macrophage)&&macrophage.checkBacteria(bacteria)) {
                         //TODO: Check if there is a match in receptors...
                         bacteria.kill();
                         this.bacterias.splice(i, 1);
                     }
                 }
-
                 // Check collision with receptor
                 if (this.receptor) {
                     if (bacteria.collidesWith(this.receptor)) {
                         this.receptor.kill();
+                        this.emitter.numberOfReceptors--;
                         this.receptor = null;
                         this.showDecisionDialog(bacteria.receptorLevel);
                     }

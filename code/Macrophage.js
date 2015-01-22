@@ -47,7 +47,7 @@ Macrophage.prototype.acquireReceptor = function() {
 
 Macrophage.prototype.update = function () {
     //var angle = Phaser.Math.angleBetweenPoints(this, this.target);
-    if (this.isDead) {
+    if (this.isDead ||GAME_PUASED ) {
         return; //horrible workaround!
     }
 
