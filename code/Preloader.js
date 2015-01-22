@@ -26,7 +26,7 @@ BasicGame.Preloader.prototype = {
 		//	As this is just a Project Template I've not provided these assets, swap them for your own.
 		this.load.image('bacteria', 'images/bacteria_0.png');
 		this.load.image('macrophage', 'images/Macrophage_0.png');
-		this.load.image('dialog', 'images/dialog.png');
+		this.load.image('dialog', 'images/selection_dialog_frame.png');
 		this.load.image('receptor', 'images/receptor.png');
 		//this.load.atlas('playButton', 'images/play_button.png', 'images/play_button.json');
 		this.load.audio('gameMusic', ['audio/jerms_game.mp3']);

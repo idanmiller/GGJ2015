@@ -76,7 +76,8 @@ BasicGame.Game.prototype = {
 
     showDecisionDialog: function() {
         this.isDeciding = true;
-        this.dialog = this.game.add.sprite(480, 300, "dialog");
+        this.dialog = new Dialog(this.game, this.config);
+        this.game.add.existing(this.dialog);
     },
 
     dimsissDecisionDialog: function() {
@@ -89,12 +90,12 @@ BasicGame.Game.prototype = {
         var cursors = this.game.input.keyboard.createCursorKeys();
 
         if (this.isDeciding) {
-            if (cursors.left.isDown) {
+            if (this.game.input.keyboard.isDown(Phaser.Keyboard.Q)) {
                 this.dimsissDecisionDialog();
                 this.splitAllBacterias();
             }
 
-            if (cursors.right.isDown) {
+            if (this.game.input.keyboard.isDown(Phaser.Keyboard.W)) {
                 this.dimsissDecisionDialog();
                 this.acquireReceptor();
             }
@@ -147,11 +148,13 @@ BasicGame.Game.prototype = {
     },
 
     gameOver: function() {
-
+        var dialog = new GameOverDialog(this.game, this.config, "GAME OVER!");
+        this.game.add.existing(dialog);
     },
 
     gameWon: function() {
-
+        var dialog = new GameOverDialog(this.game, this.config, "YOU WON!");
+        this.game.add.existing(dialog);
     },
 
     splitAllBacterias: function() {
