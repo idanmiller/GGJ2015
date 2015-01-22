@@ -126,8 +126,8 @@ BasicGame.Game.prototype = {
                 // TEMP
                 this.bacterias[i].x = this.bacterias[i].x + 1 / this.FPS * this.bacterias[i].velocity.x;
                 this.bacterias[i].y = this.bacterias[i].y + 1 / this.FPS * this.bacterias[i].velocity.y;
-                console.log("X:"+this.bacterias[i].x);
-                console.log("Y:"+this.bacterias[i].y);
+                //console.log("X:"+this.bacterias[i].x);
+                //console.log("Y:"+this.bacterias[i].y);
             }
 
             //emit macrophage
