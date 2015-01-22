@@ -29,18 +29,19 @@ Bacteria.prototype.acquireReceptor = function() {
 },
 
 Bacteria.prototype.split = function(stopFunction, context) {
+	var scale = Math.max(this.scale.x-0.1, 0.3);
 	var splitter = this.game.add.sprite(this.x, this.y, 'bacteria_split');
-	splitter.scale.setTo(0.8, 0.8);
+	splitter.scale.setTo(scale, scale);
 	var animation = splitter.animations.add('bacteria_split');
 	splitter.animations.play('bacteria_split', 10, false);
 	animation.onComplete.add(stopFunction, context, splitter);
 
-	var first  = new Bacteria(this.game, this.config, splitter.x+40, splitter.y+70, this.resource);
-	var second = new Bacteria(this.game, this.config, splitter.x+40, splitter.y+150, this.resource);
+	var first  = new Bacteria(this.game, this.config, splitter.x+60, splitter.y+65, this.resource);
+	var second = new Bacteria(this.game, this.config, splitter.x+60, splitter.y+145, this.resource);
 	this.inheritReceptors(this, first);
 	this.inheritReceptors(this, second);
-	first.scale.setTo(0.8, 0.8);
-	second.scale.setTo(0.8, 0.8);
+	first.scale.setTo(scale, scale);
+	second.scale.setTo(scale, scale);
 
 	return [first, second];
 };
