@@ -1,3 +1,4 @@
+var GAME_PUASED = false;
 
 BasicGame.Game = function (game) {
 
@@ -25,6 +26,7 @@ BasicGame.Game = function (game) {
     this.FPS = 60;
     this.config = {fps:this.FPS, strategies:{ default :'Default',chase:'Chase'} };
     this.emitter = new Emitter(game,this,this.config);
+    this.lostGame = false;
 
     //  You can use any of these from any function within this State.
     //  But do consider them as being 'reserved words', i.e. don't create a property for your own game called "world" or you'll over-write the world reference.
@@ -49,7 +51,7 @@ BasicGame.Game.prototype = {
         this.game.add.existing(bacteria);
         this.bacterias.push(bacteria);
 
-        // Start and init emitter
+        // Start and init itter
         // TEMP just emit a macrophage every 3 seconds
         //this.game.time.events.loop(Phaser.Timer.SECOND * 3, this.addMacrophage, this);
         //this.game.time.events.loop(Phaser.Timer.SECOND * 3, this.addReceptor, this);
@@ -72,15 +74,22 @@ BasicGame.Game.prototype = {
 
     addReceptor: function(receptor) {
         this.game.add.existing(receptor);
+        this.receptor = receptor;
     },
 
-    showDecisionDialog: function() {
+    showDecisionDialog: function(level) {
         this.isDeciding = true;
-        this.dialog = new Dialog(this.game, this.config, "dialog");
+        gamePaused = true;
+        this.dialog = new DecisionDialog(this.game, this.config, level);
         this.game.add.existing(this.dialog);
+
+        for (var i = 0; i < this.bacterias.length; i++) {
+            this.bacterias[i].resetMovementParameters();
+        }
     },
 
     dimsissDecisionDialog: function() {
+        gamePaused = false;
         this.isDeciding = false;
         this.dialog.kill();
     },
@@ -105,9 +114,9 @@ BasicGame.Game.prototype = {
                 bacteria.calculateAcceleration(cursors);
                 bacteria.calculateVelocity(cursors);
             }
-
-            this.emitter.updateProgress(this.score);
-
+            if(!this.lostGame) {
+                this.emitter.updateProgress(this.score);
+            }
             // Move all entities
 
             // Check walls collision
@@ -118,20 +127,19 @@ BasicGame.Game.prototype = {
 
                 for (var j = 0; j < this.macrophages.length; j++) {
                     var macrophage = this.macrophages[j];
-
-                    if (bacteria.collidesWith(macrophage)) {
+                    if (bacteria.collidesWith(macrophage)&&macrophage.checkBacteria(bacteria)) {
                         //TODO: Check if there is a match in receptors...
                         bacteria.kill();
                         this.bacterias.splice(i, 1);
                     }
                 }
-
                 // Check collision with receptor
                 if (this.receptor) {
                     if (bacteria.collidesWith(this.receptor)) {
                         this.receptor.kill();
+                        this.emitter.numberOfReceptors--;
                         this.receptor = null;
-                        this.showDecisionDialog();
+                        this.showDecisionDialog(bacteria.receptorLevel);
                     }
                 }
             }
@@ -149,7 +157,8 @@ BasicGame.Game.prototype = {
 
     gameOver: function(dialogFrame) {
         var dialog = new Dialog(this.game, this.config, dialogFrame);
-        this.game.add.existing(dialog);
+        this.game.add.existing(dialog)
+        this.lostGame = true;
     },
 
     splitAllBacterias: function() {

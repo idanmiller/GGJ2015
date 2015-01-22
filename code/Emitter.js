@@ -9,7 +9,7 @@ Emitter = function(game,gameContext,config) {
     this.numberOfMacrophages = 0;
     this.macrophagesCounter = 0;
     this.macrophagesProbabiltyMultiplayer = 1;
-    this.numberOfReceptors = 0
+    this.numberOfReceptors = 0;
     this.receptorProbabiltyMultiplayer = 1;
 };
 
@@ -27,9 +27,6 @@ Emitter.prototype.updateLevel = function(score) {
     this.level = Math.round(score/SCORE_LEVEL_FACTOR)+1;
 };
 
-
-
-
 Emitter.prototype.emitt = function(score) {
         this.emitReceptor(score);
         this.emitMacrophage(score);
@@ -44,12 +41,12 @@ Emitter.prototype.emitMacrophage = function(score) {
     var lottoResult = Math.floor(Math.random() * factor)*this.macrophagesProbabiltyMultiplayer + 1;
     if (lottoResult >= factor-1){
         console.log("Score:"+score);
-       this.createMacrophage();
+       this.createMacrophage(score);
     }
-}
+};
 
-;Emitter.prototype.emitReceptor = function(score) {
-    var secondsBeforeCreation = 30;
+Emitter.prototype.emitReceptor = function(score) {
+    var secondsBeforeCreation = 15;
     var fps = this.fps;
     var factor  = (secondsBeforeCreation*fps) ;
     if(this.numberOfReceptors){
@@ -57,26 +54,26 @@ Emitter.prototype.emitMacrophage = function(score) {
     }
     var lottoResult = Math.floor(Math.random() * factor) + 1;
     if (lottoResult >= factor-1){
-        this.createRecptor();
+        this.createRecptor(score);
     }
 };
 
-Emitter.prototype.createMacrophage = function() {
-
-    console.log("Emitter is creating a Macrophage");
-    console.log("Probability: "+this.macrophagesProbabiltyMultiplayer);
-    console.log("Macrophage: "+this.numberOfMacrophages);
+Emitter.prototype.createMacrophage = function(score) {
+    //console.log("Emitter is creating a Macrophage");
+    //console.log("Probability: "+this.macrophagesProbabiltyMultiplayer);
+    //console.log("Macrophage: "+this.numberOfMacrophages);
     this.macrophagesProbabiltyMultiplayer = 1;
     this.macrophagesCounter++;
     this.numberOfMacrophages++;
-    var macro = new Macrophage(this.game,this.config,0,0,this.config.strategies.default,this);
+    var receptorLevel = Math.round(Math.min(10,score)* Math.random())+1;
+
+    var macro = new Macrophage(this.game,this.config,0,0,this.config.strategies.default,this,receptorLevel);
     macro.id = this.macrophagesCounter;
     this.gameContext.addMacrophage(macro);
 };
 
 Emitter.prototype.createRecptor = function() {
     console.log("Emitter is creating a Recptor");
-    console.log("Macrophage: "+this.numberOfMacrophages);
     this.receptorProbabiltyMultiplayer = 1;
     this.numberOfReceptors++;
     var x = Math.random()* 360 + 300;
