@@ -29,6 +29,8 @@ BasicGame.Game.prototype = {
 
     create: function () {
         // Create initial bacteria
+        var bacteria = new Bacteria(this.game, 100, 100, "bacteria", 50);
+        //this.game.add.existing(bacteria);
 
         // Start and init emitter
 
