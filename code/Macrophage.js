@@ -8,6 +8,8 @@ Macrophage = function (game, config, x, y, strategy,emitter, startingPosition) {
     this.rotation = Math.random() * 380 - 180;
     this.strategy = strategy;
     this.emitter = emitter;
+    this.radius = 250;
+
 };
 
 Macrophage.prototype = Object.create(CircularEntity.prototype);
@@ -16,11 +18,13 @@ Macrophage.prototype.constructor = Macrophage;
 Macrophage.prototype.findTarget = function () {
     if (this.strategy == this.config.strategies.default) {
         this.x += Math.random() * - 300;
-        this.y += Math.random() * - 500;
-        var targetX =  Math.random()* 900 - 150 ;
-        var targetY = Math.random() * 1000 + 1000;
+        this.y += Math.random() *  200 -100;
+        var targetX =  Math.random()* 900 ;
+        var targetY = Math.random() * 1000 + 600;
         this.target = {x: targetX, y: targetY};
         var angle = Phaser.Math.angleBetweenPoints(this, this.target);
+        console.log(angle);
+        console.log("TargetX:"+targetX+",TargetY"+targetY);
         this.velocityX = -Math.cos(angle) * this.velocity * 1 / this.config.fps;
         this.velocityY = -Math.sin(angle) * this.velocity * 1 / this.config.fps;
     }
@@ -28,12 +32,16 @@ Macrophage.prototype.findTarget = function () {
 
 Macrophage.prototype.update = function () {
     //var angle = Phaser.Math.angleBetweenPoints(this, this.target);
+    if(this.isDead){
+        return; //horrible workaround!
+    }
+
     this.rotation+=0.005;
     if (this.rotation > 180) {
         this.rotation *= -1;
     }
 
-    if(this.x < -500 || this.y > 1500  ){
+    if(this.x < -400 || this.y > 1500  ){
         this.destroyMe();
     }
 
@@ -43,5 +51,9 @@ Macrophage.prototype.update = function () {
 
 Macrophage.prototype.destroyMe = function () {
     this.emitter.killMacrophage(this);
+    this.isDead = true;
+
+    this.kill();
+    this.destroy();
 
 }

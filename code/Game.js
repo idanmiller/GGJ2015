@@ -136,6 +136,8 @@ BasicGame.Game.prototype = {
                 }
             }
 
+            //console.log("x:" +this.game.input.mousePointer.x+",y:"+this.game.input.mousePointer.y);
+
             // Check bacteria and receptor collision
             if (this.bacterias.length == 0) {
                 this.gameOver();
