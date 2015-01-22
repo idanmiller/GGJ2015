@@ -21,6 +21,7 @@ BasicGame.Game = function (game) {
     this.rnd;       //  the repeatable random number generator (Phaser.RandomDataGenerator)
 
     //GameJame Init
+    this.score = 0;
     this.FPS = 60;
     this.config = {fps:this.FPS, strategies:{ default :'Default',chase:'Chase'} };
     this.emitter = new Emitter(game,this,this.config);
@@ -48,9 +49,16 @@ BasicGame.Game.prototype = {
         // TEMP just emit a macrophage every 3 seconds
         //this.game.time.events.loop(Phaser.Timer.SECOND * 3, this.addMacrophage, this);
         //this.game.time.events.loop(Phaser.Timer.SECOND * 3, this.addReceptor, this);
+        this.addReceptor();
+
+        this.game.time.events.loop(Phaser.Timer.SECOND * 30, this.addScore, this);
 
         this.music = this.add.audio("gameMusic");
         this.music.play();
+    },
+
+    addScore: function() {
+        this.score++;
     },
 
     addMacrophage: function(macrophage) {
@@ -97,9 +105,7 @@ BasicGame.Game.prototype = {
                 bacteria.calculateVelocity(cursors);
             }
 
-            //emit macrophage
-            var score = 1;
-            this.emitter.updateProgress(score);
+            this.emitter.updateProgress(this.score);
 
             // Move all entities
 
@@ -115,6 +121,7 @@ BasicGame.Game.prototype = {
                     if (bacteria.collidesWith(macrophage)) {
                         //TODO: Check if there is a match in receptors...
                         bacteria.kill();
+                        this.bacterias.splice(i, 1);
                     }
                 }
 
@@ -129,9 +136,22 @@ BasicGame.Game.prototype = {
             }
 
             // Check bacteria and receptor collision
+            if (this.bacterias.length == 0) {
+                this.gameOver();
+            } else if (this.bacterias.length > 100) {
+                this.gameWon();
+            }
 
             // Check game end: no bacterias, or enough bacterias
         }
+    },
+
+    gameOver: function() {
+
+    },
+
+    gameWon: function() {
+
     },
 
     splitAllBacterias: function() {
