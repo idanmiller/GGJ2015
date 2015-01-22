@@ -91,41 +91,10 @@ BasicGame.Game.prototype = {
                 this.acquireReceptor();
             }
         } else {
-            var bacteriaVelocityX = 0;
-            var bacteriaVelocityY = 0;
-
-
-            //todo: Idan velocity should come from an entity property [acceleration]
-            if (cursors.left.isDown)
-            {
-                //  Move to the left
-                bacteriaVelocityX = -150;
-            }
-
-            if (cursors.right.isDown)
-            {
-                //  Move to the right
-                bacteriaVelocityX = 150;   
-            }
-
-            if (cursors.up.isDown)
-            {
-                //  Move up
-                bacteriaVelocityY = -150;   
-            }
-
-            if (cursors.down.isDown)
-            {
-                //  Move down
-                bacteriaVelocityY = 150;   
-            }
-
             for (var i = 0; i < this.bacterias.length; i++) {
-                this.bacterias[i].velocity = {x: bacteriaVelocityX, y: bacteriaVelocityY};
-
-                // TEMP
-                this.bacterias[i].x = this.bacterias[i].x + 1 / this.FPS * this.bacterias[i].velocity.x;
-                this.bacterias[i].y = this.bacterias[i].y + 1 / this.FPS * this.bacterias[i].velocity.y;
+                var bacteria = this.bacterias[i];
+                bacteria.calculateAcceleration(cursors);
+                bacteria.calculateVelocity(cursors);
             }
 
             //emit macrophage
