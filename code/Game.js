@@ -53,7 +53,6 @@ BasicGame.Game.prototype = {
         // TEMP just emit a macrophage every 3 seconds
         //this.game.time.events.loop(Phaser.Timer.SECOND * 3, this.addMacrophage, this);
         //this.game.time.events.loop(Phaser.Timer.SECOND * 3, this.addReceptor, this);
-
         this.game.time.events.loop(Phaser.Timer.SECOND * 30, this.addScore, this);
         this.music = this.add.audio("gameMusic");
         this.music.play();
@@ -77,7 +76,7 @@ BasicGame.Game.prototype = {
 
     showDecisionDialog: function() {
         this.isDeciding = true;
-        this.dialog = new Dialog(this.game, this.config);
+        this.dialog = new Dialog(this.game, this.config, "dialog");
         this.game.add.existing(this.dialog);
     },
 
@@ -139,22 +138,17 @@ BasicGame.Game.prototype = {
 
             // Check bacteria and receptor collision
             if (this.bacterias.length == 0) {
-                this.gameOver();
+                this.gameOver("you_lost");
             } else if (this.bacterias.length > 100) {
-                this.gameWon();
+                this.gameWon("you_won");
             }
 
             // Check game end: no bacterias, or enough bacterias
         }
     },
 
-    gameOver: function() {
-        var dialog = new GameOverDialog(this.game, this.config, "GAME OVER!");
-        this.game.add.existing(dialog);
-    },
-
-    gameWon: function() {
-        var dialog = new GameOverDialog(this.game, this.config, "YOU WON!");
+    gameOver: function(dialogFrame) {
+        var dialog = new Dialog(this.game, this.config, dialogFrame);
         this.game.add.existing(dialog);
     },
 
@@ -175,7 +169,9 @@ BasicGame.Game.prototype = {
     },
 
     acquireReceptor: function() {
-
+        for (var i = 0; i < this.bacterias.lenth; i++) {
+            this.bacterias[i].collectReceptor();
+        }
     },
 
     quitGame: function (pointer) {
