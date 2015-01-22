@@ -53,7 +53,7 @@ BasicGame.Game.prototype = {
         this.startScreen = new Dialog(this.game, this.config, "startDialog");
         this.game.add.existing(this.startScreen);
 
-        this.game.time.events.loop(Phaser.Timer.SECOND * 30, this.addScore, this);
+        this.game.time.events.loop(Phaser.Timer.SECOND * 25, this.addScore, this);
         this.music = this.add.audio('menuMusic',1,true);
         this.music.play('',0,1,true);
     },
