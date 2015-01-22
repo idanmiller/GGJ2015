@@ -47,8 +47,8 @@ BasicGame.Game.prototype = {
         // TEMP just emit a macrophage every 3 seconds
         //this.game.time.events.loop(Phaser.Timer.SECOND * 3, this.addMacrophage, this);
 
-        //  Honestly, just about anything could go here. It's YOUR game after all. Eat your heart out!
-
+        this.music = this.add.audio("gameMusic");
+        this.music.play();
     },
 
     addMacrophage: function(macrophage) {
@@ -59,17 +59,36 @@ BasicGame.Game.prototype = {
         this.macrophages.push(macrophage);
     },
 
+    addReceptor: function() {
+        var receptor = new Receptor(this.game, this.config, 480, 300, "receptor");
+        this.game.add.existing(receptor);
+        this.isDeciding = true;
+
+        this.showDecisionDialog();
+    },
+
+    showDecisionDialog: function() {
+        this.dialog = this.game.add.sprite(480, 300, "dialog");
+    },
+
+    dimsissDecisionDialog: function() {
+        this.isDeciding = false;
+        this.dialog.kill();
+    },
+
     update: function () {
         // Check controls, update bacteria movement
         var cursors = this.game.input.keyboard.createCursorKeys();
 
         if (this.isDeciding) {
             if (cursors.left.isDown) {
-                this.isDeciding = false;
+                this.dimsissDecisionDialog();
+                this.splitAllBacterias();
             }
 
             if (cursors.right.isDown) {
-                this.isDeciding = false;
+                this.dimsissDecisionDialog();
+                this.acquireReceptor();
             }
         } else {
             var bacteriaVelocityX = 0;
@@ -151,6 +170,10 @@ BasicGame.Game.prototype = {
         }
 
         this.bacterias = this.newBacterias;
+    },
+
+    acquireReceptor: function() {
+
     },
 
     quitGame: function (pointer) {
