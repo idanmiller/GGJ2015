@@ -9,7 +9,7 @@ Emitter = function(game,gameContext,config) {
     this.numberOfMacrophages = 0;
     this.macrophagesCounter = 0;
     this.macrophagesProbabiltyMultiplayer = 1;
-    this.numberOfReceptors = 0
+    this.numberOfReceptors = 0;
     this.receptorProbabiltyMultiplayer = 1;
 };
 
@@ -27,9 +27,6 @@ Emitter.prototype.updateLevel = function(score) {
     this.level = Math.round(score/SCORE_LEVEL_FACTOR)+1;
 };
 
-
-
-
 Emitter.prototype.emitt = function(score) {
         this.emitReceptor(score);
         this.emitMacrophage(score);
@@ -46,9 +43,9 @@ Emitter.prototype.emitMacrophage = function(score) {
         console.log("Score:"+score);
        this.createMacrophage(score);
     }
-}
+};
 
-;Emitter.prototype.emitReceptor = function(score) {
+Emitter.prototype.emitReceptor = function(score) {
     var secondsBeforeCreation = 30;
     var fps = this.fps;
     var factor  = (secondsBeforeCreation*fps) ;
