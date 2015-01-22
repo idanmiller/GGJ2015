@@ -44,6 +44,9 @@ BasicGame.Game.prototype = {
 
         this.game.add.sprite(0, 0, "background");
 
+        var dialog = new Dialog(this.game, this.config, dialogFrame);
+        this.game.add.existing(dialog)
+
         var bacteria = new Bacteria(this.game, this.config, 100, 100, "bacteria_idle");
         bacteria.animations.add('bacteria_idle');
         bacteria.animations.play('bacteria_idle', 10, true);
@@ -57,8 +60,8 @@ BasicGame.Game.prototype = {
         //this.game.time.events.loop(Phaser.Timer.SECOND * 3, this.addReceptor, this);
 
         this.game.time.events.loop(Phaser.Timer.SECOND * 30, this.addScore, this);
-        this.music = this.add.audio("gameMusic");
-        this.music.play();
+        music = this.add.audio('gameMusic',1,true);
+        music.play('',0,1,true);
     },
 
     addScore: function() {
@@ -100,12 +103,12 @@ BasicGame.Game.prototype = {
         var cursors = this.game.input.keyboard.createCursorKeys();
 
         if (this.isDeciding) {
-            if (this.game.input.keyboard.isDown(Phaser.Keyboard.Q)) {
+            if (this.game.input.keyboard.isDown(Phaser.Keyboard.W)) {
                 this.dimsissDecisionDialog();
                 this.splitAllBacterias();
             }
 
-            if (this.game.input.keyboard.isDown(Phaser.Keyboard.W)) {
+            if (this.game.input.keyboard.isDown(Phaser.Keyboard.Q)) {
                 this.dimsissDecisionDialog();
                 this.acquireReceptor();
             }
