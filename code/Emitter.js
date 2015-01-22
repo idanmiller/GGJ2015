@@ -34,7 +34,7 @@ Emitter.prototype.emmitMacrophage = function(score) {
 
 Emitter.prototype.createMacrophage = function() {
     console.log("Emitter is creating a Macrophage");
-    var macro = new Macrophage(this.game,0,0,"macrophage",this.config.strategies.default);
+    var macro = new Macrophage(this.game,this.config,0,0,"macrophage",this.config.strategies.default);
     this.gameContext.addMacrophage(macro);
 
 
