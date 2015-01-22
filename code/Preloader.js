@@ -30,6 +30,8 @@ BasicGame.Preloader.prototype = {
 		this.load.image('dialog', 'images/selection_dialog_frame.png');
 		this.load.image('receptor', 'images/receptor.png');
 		this.load.image('background', 'images/background.png');
+		this.load.image('you_won', 'images/you_won.png');
+		this.load.image('you_lost', 'images/you_lost.png');
 		//this.load.atlas('playButton', 'images/play_button.png', 'images/play_button.json');
 		this.load.audio('gameMusic', ['audio/jerms_game.mp3']);
 		//this.load.bitmapFont('caslon', 'fonts/caslon.png', 'fonts/caslon.xml');
