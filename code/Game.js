@@ -40,6 +40,8 @@ BasicGame.Game.prototype = {
         this.bacterias = [];
         this.macrophages = [];
 
+        this.game.add.sprite(0, 0, "background");
+
         var bacteria = new Bacteria(this.game, this.config, 100, 100, "bacteria_idle");
         bacteria.animations.add('bacteria_idle');
         bacteria.animations.play('bacteria_idle', 10, true);
