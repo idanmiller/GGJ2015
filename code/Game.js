@@ -23,7 +23,7 @@ BasicGame.Game = function (game) {
     //GameJame Init
     this.FPS = 60;
     this.config = {fps:this.FPS, strategies:{ default :'Default',chase:'Chase'} };
-    this.emitter = new Emitter(game,this,this.config);
+    //this.emitter = new Emitter(game,this,this.config);
 
     //  You can use any of these from any function within this State.
     //  But do consider them as being 'reserved words', i.e. don't create a property for your own game called "world" or you'll over-write the world reference.
@@ -34,6 +34,7 @@ BasicGame.Game.prototype = {
 
     create: function () {
         // Create initial bacteria
+        this.receptor = null;
         this.isDeciding = false;
         this.bacterias = [];
         this.macrophages = [];
@@ -46,6 +47,7 @@ BasicGame.Game.prototype = {
         // Start and init emitter
         // TEMP just emit a macrophage every 3 seconds
         //this.game.time.events.loop(Phaser.Timer.SECOND * 3, this.addMacrophage, this);
+        this.game.time.events.loop(Phaser.Timer.SECOND * 3, this.addReceptor, this);
 
         this.music = this.add.audio("gameMusic");
         this.music.play();
@@ -60,14 +62,12 @@ BasicGame.Game.prototype = {
     },
 
     addReceptor: function() {
-        var receptor = new Receptor(this.game, this.config, 480, 300, "receptor");
-        this.game.add.existing(receptor);
-        this.isDeciding = true;
-
-        this.showDecisionDialog();
+        this.receptor = new Receptor(this.game, this.config, 480, 300, "receptor");
+        this.game.add.existing(this.receptor);
     },
 
     showDecisionDialog: function() {
+        this.isDeciding = true;
         this.dialog = this.game.add.sprite(480, 300, "dialog");
     },
 
@@ -91,55 +91,22 @@ BasicGame.Game.prototype = {
                 this.acquireReceptor();
             }
         } else {
-            var bacteriaVelocityX = 0;
-            var bacteriaVelocityY = 0;
-
-
-            //todo: Idan velocity should come from an entity property [acceleration]
-            if (cursors.left.isDown)
-            {
-                //  Move to the left
-                bacteriaVelocityX = -150;
-            }
-
-            if (cursors.right.isDown)
-            {
-                //  Move to the right
-                bacteriaVelocityX = 150;   
-            }
-
-            if (cursors.up.isDown)
-            {
-                //  Move up
-                bacteriaVelocityY = -150;   
-            }
-
-            if (cursors.down.isDown)
-            {
-                //  Move down
-                bacteriaVelocityY = 150;   
-            }
-
             for (var i = 0; i < this.bacterias.length; i++) {
-                this.bacterias[i].velocity = {x: bacteriaVelocityX, y: bacteriaVelocityY};
-
-                // TEMP
-                this.bacterias[i].x = this.bacterias[i].x + 1 / this.FPS * this.bacterias[i].velocity.x;
-                this.bacterias[i].y = this.bacterias[i].y + 1 / this.FPS * this.bacterias[i].velocity.y;
-                //console.log("X:"+this.bacterias[i].x);
-                //console.log("Y:"+this.bacterias[i].y);
+                var bacteria = this.bacterias[i];
+                bacteria.calculateAcceleration(cursors);
+                bacteria.calculateVelocity(cursors);
             }
 
             //emit macrophage
             var score = 1;
-            this.emitter.updateProgress(score);
+            //this.emitter.updateProgress(score);
 
             // Move all entities
 
             // Check walls collision
 
             // Check bacteria and macrofag collision
-            /*for (var i = this.bacterias.length - 1; i >= 0; i--) {
+            for (var i = this.bacterias.length - 1; i >= 0; i--) {
                 var bacteria = this.bacterias[i];
 
                 for (var j = 0; j < this.macrophages.length; j++) {
@@ -150,7 +117,18 @@ BasicGame.Game.prototype = {
                         bacteria.kill();
                     }
                 }
-            }*/
+
+                // Check collision with receptor
+                if (this.receptor) {
+                    if (bacteria.collidesWith(this.receptor)) {
+                        this.receptor.kill();
+                        this.receptor = null;
+                        this.showDecisionDialog();
+                    }
+                }
+            }
+
+            // Check bacteria and receptor collision
 
             // Check game end: no bacterias, or enough bacterias
         }
