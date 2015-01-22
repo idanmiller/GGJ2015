@@ -53,10 +53,8 @@ BasicGame.Game.prototype = {
         // TEMP just emit a macrophage every 3 seconds
         //this.game.time.events.loop(Phaser.Timer.SECOND * 3, this.addMacrophage, this);
         //this.game.time.events.loop(Phaser.Timer.SECOND * 3, this.addReceptor, this);
-        this.addReceptor();
 
         this.game.time.events.loop(Phaser.Timer.SECOND * 30, this.addScore, this);
-
         this.music = this.add.audio("gameMusic");
         this.music.play();
     },
@@ -73,9 +71,8 @@ BasicGame.Game.prototype = {
         this.macrophages.push(macrophage);
     },
 
-    addReceptor: function() {
-        this.receptor = new Receptor(this.game, this.config, 480, 300, "receptor");
-        this.game.add.existing(this.receptor);
+    addReceptor: function(receptor) {
+        this.game.add.existing(receptor);
     },
 
     showDecisionDialog: function() {
