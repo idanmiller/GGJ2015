@@ -1,6 +1,6 @@
 Macrophage = function(game, config, x, y, resource, strategy, startingPosition) {
 	this.type = "Macrophage";
-    CircularEntity.call(this, game, x, y, resource);
+    CircularEntity.call(this, game, config, x, y, resource);
     this.game = game;
 };
 
