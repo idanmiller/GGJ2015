@@ -26,9 +26,13 @@ Bacteria.prototype.resetMovementParameters = function() {
 };
 
 Bacteria.prototype.acquireReceptor = function() {
-	this.receptorLevel++;
+	if(this.receptor){
+		this.removeChild(this.receptor);
+	}
+	this.receptorLevel = this.receptorLevel == 10 ? 10 : this.receptorLevel+1;
 	this.receptorResource = "receptor_" + this.receptorLevel;
-	this.addChild(this.game.make.sprite(this.width/4, -this.height/2-this.height/7.5, this.receptorResource ))
+	this.receptor =this.game.make.sprite(this.width/4, -this.height/2-this.height/7.5, this.receptorResource );
+	this.addChild(this.receptor);
 },
 
 Bacteria.prototype.split = function(stopFunction, context) {
