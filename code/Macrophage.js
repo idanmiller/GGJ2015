@@ -16,9 +16,9 @@ Macrophage.prototype.constructor = Macrophage;
 Macrophage.prototype.findTarget = function () {
     if (this.strategy == this.config.strategies.default) {
         this.x += Math.random() * - 300;
-        this.y += Math.random() * - 500;
+        this.y += Math.random() *  200 -100;
         var targetX =  Math.random()* 900 - 150 ;
-        var targetY = Math.random() * 1000 + 1000;
+        var targetY = Math.random() * 1000 + 1500;
         this.target = {x: targetX, y: targetY};
         var angle = Phaser.Math.angleBetweenPoints(this, this.target);
         this.velocityX = -Math.cos(angle) * this.velocity * 1 / this.config.fps;
@@ -28,6 +28,10 @@ Macrophage.prototype.findTarget = function () {
 
 Macrophage.prototype.update = function () {
     //var angle = Phaser.Math.angleBetweenPoints(this, this.target);
+    if(this.isDead){
+        return; //horrible workaround!
+    }
+
     this.rotation+=0.005;
     if (this.rotation > 180) {
         this.rotation *= -1;
@@ -43,5 +47,9 @@ Macrophage.prototype.update = function () {
 
 Macrophage.prototype.destroyMe = function () {
     this.emitter.killMacrophage(this);
+    this.isDead = true;
+
+    this.kill();
+    this.destroy();
 
 }
