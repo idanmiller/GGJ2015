@@ -19,7 +19,8 @@ BasicGame.Game = function (game) {
     this.particles; //  the particle manager (Phaser.Particles)
     this.physics;   //  the physics manager (Phaser.Physics)
     this.rnd;       //  the repeatable random number generator (Phaser.RandomDataGenerator)
-    this.FPS = 60; 
+    this.FPS = 60;
+    this.emitter = new Emitter(game);
     //  You can use any of these from any function within this State.
     //  But do consider them as being 'reserved words', i.e. don't create a property for your own game called "world" or you'll over-write the world reference.
 
@@ -98,6 +99,10 @@ BasicGame.Game.prototype = {
             this.bacterias[i].x = this.bacterias[i].x + 1 / this.FPS * this.bacterias[i].velocity.x;
             this.bacterias[i].y = this.bacterias[i].y + 1 / this.FPS * this.bacterias[i].velocity.y;
         }
+
+        //emit macrophage
+        var score = 1;
+        this.emitter.updateProgress(score);
 
         // Move all entities
 
