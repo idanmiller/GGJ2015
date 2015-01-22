@@ -16,19 +16,24 @@ Macrophage.prototype = Object.create(CircularEntity.prototype);
 Macrophage.prototype.constructor = Macrophage;
 
 Macrophage.prototype.findTarget = function () {
-    if (this.strategy == this.config.strategies.default) {
-        this.x += Math.random() * - 300;
-        this.y += Math.random() *  200 -100;
-        var targetX =  Math.random()* 900 ;
-        var targetY = Math.random() * 1000 + 600;
+    if (this.strategy == this.config.strategies.default)
+        if(Math.random() > 0.5) { //top ot bottom
+            this.y = Math.random() *  200 -100;
+            var targetY = Math.random() * 600 + 300;
+        }else {
+            this.y = Math.random() *  200 +600;
+            var targetY = Math.random() *  300;
+        }
+        this.x = Math.random() * - 300 + 960;
+        var targetX =  -1000;
         this.target = {x: targetX, y: targetY};
-        var angle = Phaser.Math.angleBetweenPoints(this, this.target);
-        console.log(angle);
+        var angle = Math.atan((this.y - targetY) / (targetX - this.x)) * (180 / Math.PI);
+        console.log("Angle:"+angle);
         console.log("TargetX:"+targetX+",TargetY"+targetY);
-        this.velocityX = -Math.cos(angle) * this.velocity * 1 / this.config.fps;
-        this.velocityY = -Math.sin(angle) * this.velocity * 1 / this.config.fps;
+        this.velocityX = -this.velocity/this.config.fps;
+        this.velocityY = Math.sin(angle) * this.velocity * 1 / this.config.fps;
     }
-}
+
 
 Macrophage.prototype.update = function () {
     //var angle = Phaser.Math.angleBetweenPoints(this, this.target);
