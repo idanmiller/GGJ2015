@@ -29,6 +29,7 @@ BasicGame.Preloader.prototype = {
 		this.load.atlas('bacteria_split', 'images/bacteria_split.png', 'bacteria_split.json' );
 		this.load.image('macrophage', 'images/Macrophage_0.png');
 		this.load.image('dialog', 'images/selection_dialog_frame.png');
+		this.load.image('startDialog', 'images/hit_space_to_play.png');
 		this.load.image('receptor', 'images/receptor.png');
 		this.load.image('receptor_1', 'images/receptor_1.png');
 		this.load.image('receptor_2', 'images/receptor_2.png');
@@ -66,6 +67,7 @@ BasicGame.Preloader.prototype = {
 		this.load.image('receptor_button10', 'images/dialog_receptor_10_normal.png');
 		//this.load.atlas('playButton', 'images/play_button.png', 'images/play_button.json');
 		this.load.audio('gameMusic', ['audio/jerms_game.mp3']);
+		this.load.audio('menuMusic', ['audio/menu_music.mp3']);
 		//this.load.bitmapFont('caslon', 'fonts/caslon.png', 'fonts/caslon.xml');
 		//	+ lots of other required assets here
 

@@ -37,15 +37,26 @@ BasicGame.Game.prototype = {
 
     create: function () {
         // Create initial bacteria
+        this.waitingToStart = true;
         this.receptor = null;
         this.isDeciding = false;
         this.bacterias = [];
         this.macrophages = [];
 
+        this.game.input.keyboard.addKeyCapture(Phaser.Keyboard.SPACEBAR);
+
         this.game.add.sprite(0, 0, "background");
 
-        var dialog = new Dialog(this.game, this.config, dialogFrame);
-        this.game.add.existing(dialog)
+        this.startScreen = new Dialog(this.game, this.config, "startDialog");
+        this.game.add.existing(this.startScreen);
+
+        this.game.time.events.loop(Phaser.Timer.SECOND * 30, this.addScore, this);
+        this.music = this.add.audio('menuMusic',1,true);
+        this.music.play('',0,1,true);
+    },
+
+    startGame: function() {
+        this.startScreen.kill();
 
         var bacteria = new Bacteria(this.game, this.config, 100, 100, "bacteria_idle");
         bacteria.animations.add('bacteria_idle');
@@ -59,9 +70,10 @@ BasicGame.Game.prototype = {
         //this.game.time.events.loop(Phaser.Timer.SECOND * 3, this.addMacrophage, this);
         //this.game.time.events.loop(Phaser.Timer.SECOND * 3, this.addReceptor, this);
 
+        this.music.stop();
         this.game.time.events.loop(Phaser.Timer.SECOND * 30, this.addScore, this);
-        music = this.add.audio('gameMusic',1,true);
-        music.play('',0,1,true);
+        this.music = this.add.audio('gameMusic',1,true);
+        this.music.play('',0,1,true);
     },
 
     addScore: function() {
@@ -99,63 +111,68 @@ BasicGame.Game.prototype = {
     },
 
     update: function () {
-        // Check controls, update bacteria movement
-        var cursors = this.game.input.keyboard.createCursorKeys();
-
-        if (this.isDeciding) {
-            if (this.game.input.keyboard.isDown(Phaser.Keyboard.W)) {
-                this.dimsissDecisionDialog();
-                this.splitAllBacterias();
-            }
-
-            if (this.game.input.keyboard.isDown(Phaser.Keyboard.Q)) {
-                this.dimsissDecisionDialog();
-                this.acquireReceptor();
+        if (this.waitingToStart) {
+            if (this.game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
+                this.waitingToStart = false;
+                this.startGame();
             }
         } else {
-            for (var i = 0; i < this.bacterias.length; i++) {
-                var bacteria = this.bacterias[i];
-                bacteria.calculateAcceleration(cursors);
-                bacteria.calculateVelocity(cursors);
-            }
-            if(!this.lostGame) {
-                this.emitter.updateProgress(this.score);
-            }
-            // Move all entities
+            // Check controls, update bacteria movement
+            var cursors = this.game.input.keyboard.createCursorKeys();
 
-            // Check walls collision
+            if (this.isDeciding) {
+                if (this.game.input.keyboard.isDown(Phaser.Keyboard.W)) {
+                    this.dimsissDecisionDialog();
+                    this.splitAllBacterias();
+                }
 
-            // Check bacteria and macrofag collision
-            for (var i = this.bacterias.length - 1; i >= 0; i--) {
-                var bacteria = this.bacterias[i];
+                if (this.game.input.keyboard.isDown(Phaser.Keyboard.Q)) {
+                    this.dimsissDecisionDialog();
+                    this.acquireReceptor();
+                }
+            } else {
+                for (var i = 0; i < this.bacterias.length; i++) {
+                    var bacteria = this.bacterias[i];
+                    bacteria.calculateAcceleration(cursors);
+                    bacteria.calculateVelocity(cursors);
+                }
+                if(!this.lostGame) {
+                    this.emitter.updateProgress(this.score);
+                }
+                // Move all entities
 
-                for (var j = 0; j < this.macrophages.length; j++) {
-                    var macrophage = this.macrophages[j];
-                    if (bacteria.collidesWith(macrophage)&&macrophage.checkBacteria(bacteria)) {
-                        //TODO: Check if there is a match in receptors...
-                        bacteria.kill();
-                        this.bacterias.splice(i, 1);
+                // Check walls collision
+
+                // Check bacteria and macrofag collision
+                for (var i = this.bacterias.length - 1; i >= 0; i--) {
+                    var bacteria = this.bacterias[i];
+
+                    for (var j = 0; j < this.macrophages.length; j++) {
+                        var macrophage = this.macrophages[j];
+                        if (bacteria.collidesWith(macrophage)&&macrophage.checkBacteria(bacteria)) {
+                            //TODO: Check if there is a match in receptors...
+                            bacteria.kill();
+                            this.bacterias.splice(i, 1);
+                        }
+                    }
+                    // Check collision with receptor
+                    if (this.receptor) {
+                        if (bacteria.collidesWith(this.receptor)) {
+                            this.receptor.kill();
+                            this.emitter.numberOfReceptors--;
+                            this.receptor = null;
+                            this.showDecisionDialog(bacteria.receptorLevel);
+                        }
                     }
                 }
-                // Check collision with receptor
-                if (this.receptor) {
-                    if (bacteria.collidesWith(this.receptor)) {
-                        this.receptor.kill();
-                        this.emitter.numberOfReceptors--;
-                        this.receptor = null;
-                        this.showDecisionDialog(bacteria.receptorLevel);
-                    }
+
+                // Check bacteria and receptor collision
+                if (this.bacterias.length == 0) {
+                    this.gameOver("you_lost");
+                } else if (this.bacterias.length > 100) {
+                    this.gameWon("you_won");
                 }
             }
-
-            // Check bacteria and receptor collision
-            if (this.bacterias.length == 0) {
-                this.gameOver("you_lost");
-            } else if (this.bacterias.length > 100) {
-                this.gameWon("you_won");
-            }
-
-            // Check game end: no bacterias, or enough bacterias
         }
     },
 
