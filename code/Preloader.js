@@ -39,6 +39,16 @@ BasicGame.Preloader.prototype = {
 		this.load.image('receptor_8', 'images/receptor_8.png');
 		this.load.image('receptor_9', 'images/receptor_9.png');
 		this.load.image('receptor_10', 'images/receptor_10.png');
+		this.load.image('macrophage_receptor_1', 'images/macrophage_receptor_1.png');
+		this.load.image('macrophage_receptor_2', 'images/macrophage_receptor_2.png');
+		this.load.image('macrophage_receptor_3', 'images/macrophage_receptor_3.png');
+		this.load.image('macrophage_receptor_4', 'images/macrophage_receptor_4.png');
+		this.load.image('macrophage_receptor_5', 'images/macrophage_receptor_5.png');
+		this.load.image('macrophage_receptor_6', 'images/macrophage_receptor_6.png');
+		this.load.image('macrophage_receptor_7', 'images/macrophage_receptor_7.png');
+		this.load.image('macrophage_receptor_8', 'images/macrophage_receptor_8.png');
+		this.load.image('macrophage_receptor_9', 'images/macrophage_receptor_9.png');
+		this.load.image('macrophage_receptor_10', 'images/macrophage_receptor_10.png');
 		this.load.image('background', 'images/background.png');
 		this.load.image('you_won', 'images/you_won.png');
 		this.load.image('you_lost', 'images/you_lost.png');

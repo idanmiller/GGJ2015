@@ -25,6 +25,7 @@ BasicGame.Game = function (game) {
     this.FPS = 60;
     this.config = {fps:this.FPS, strategies:{ default :'Default',chase:'Chase'} };
     this.emitter = new Emitter(game,this,this.config);
+    this.lostGame = false;
 
     //  You can use any of these from any function within this State.
     //  But do consider them as being 'reserved words', i.e. don't create a property for your own game called "world" or you'll over-write the world reference.
@@ -49,7 +50,7 @@ BasicGame.Game.prototype = {
         this.game.add.existing(bacteria);
         this.bacterias.push(bacteria);
 
-        // Start and init emitter
+        // Start and init itter
         // TEMP just emit a macrophage every 3 seconds
         //this.game.time.events.loop(Phaser.Timer.SECOND * 3, this.addMacrophage, this);
         //this.game.time.events.loop(Phaser.Timer.SECOND * 3, this.addReceptor, this);
@@ -105,9 +106,9 @@ BasicGame.Game.prototype = {
                 bacteria.calculateAcceleration(cursors);
                 bacteria.calculateVelocity(cursors);
             }
-
-            this.emitter.updateProgress(this.score);
-
+            if(!this.lostGame) {
+                this.emitter.updateProgress(this.score);
+            }
             // Move all entities
 
             // Check walls collision
@@ -149,7 +150,8 @@ BasicGame.Game.prototype = {
 
     gameOver: function(dialogFrame) {
         var dialog = new Dialog(this.game, this.config, dialogFrame);
-        this.game.add.existing(dialog);
+        this.game.add.existing(dialog)
+        this.lostGame = true;
     },
 
     splitAllBacterias: function() {

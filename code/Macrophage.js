@@ -10,6 +10,7 @@ Macrophage = function (game, config, x, y, strategy, emitter, receptorLevel) {
     this.emitter = emitter;
     this.radius = 250;
     this.receptorLevel = receptorLevel;
+    this.acquireReceptor();
 
 };
 
@@ -33,7 +34,15 @@ Macrophage.prototype.findTarget = function () {
     console.log("TargetX:" + targetX + ",TargetY" + targetY);
     this.velocityX = -this.velocity / this.config.fps;
     this.velocityY = Math.sin(angle) * this.velocity * 1 / this.config.fps;
-}
+};
+
+Macrophage.prototype.acquireReceptor = function() {
+    var receptorResource = "macrophage_receptor_" + this.receptorLevel;
+    var receptor1 = this.game.make.sprite(0, this.height/3, receptorResource);
+    receptor1.rotation =180;
+    this.addChild(receptor1);
+    this.addChild(this.game.make.sprite(0, -this.height/3, receptorResource));
+},
 
 
 Macrophage.prototype.update = function () {

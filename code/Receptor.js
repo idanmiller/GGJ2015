@@ -5,11 +5,17 @@ Receptor = function(game, config, x, y,   startingPosition) {
     this.game = game;
     this.alpha = 0;
     this.ignoreCollision = true;
-    s = this.game.add.tween("receptor");
-    s.to({ alpha: 1 }, 700, function(){this.ignoreCollision = false;})
-    s.start();
 
 };
 
 Receptor.prototype = Object.create(CircularEntity.prototype);
 Receptor.prototype.constructor = Receptor;
+
+Receptor.prototype.update= function(){
+    if(this.alpha<1){
+        this.alpha+=0.01
+    }else
+    {
+        this.ignoreCollision = false;
+    }
+}
