@@ -40,7 +40,9 @@ BasicGame.Game.prototype = {
         this.bacterias = [];
         this.macrophages = [];
 
-        var bacteria = new Bacteria(this.game, this.config, 100, 100, "bacteria");
+        var bacteria = new Bacteria(this.game, this.config, 100, 100, "bacteria_idle");
+        bacteria.animations.add('bacteria_idle');
+        bacteria.animations.play('bacteria_idle', 10, true);
         bacteria.collisionRadius = 80;
         this.game.add.existing(bacteria);
         this.bacterias.push(bacteria);
@@ -135,8 +137,6 @@ BasicGame.Game.prototype = {
                     }
                 }
             }
-
-            //console.log("x:" +this.game.input.mousePointer.x+",y:"+this.game.input.mousePointer.y);
 
             // Check bacteria and receptor collision
             if (this.bacterias.length == 0) {
