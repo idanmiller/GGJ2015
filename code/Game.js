@@ -19,7 +19,8 @@ BasicGame.Game = function (game) {
     this.particles; //  the particle manager (Phaser.Particles)
     this.physics;   //  the physics manager (Phaser.Physics)
     this.rnd;       //  the repeatable random number generator (Phaser.RandomDataGenerator)
-    
+    this.FPS = 60;
+    this.emitter = new Emitter(game);
     //  You can use any of these from any function within this State.
     //  But do consider them as being 'reserved words', i.e. don't create a property for your own game called "world" or you'll over-write the world reference.
 
@@ -53,10 +54,13 @@ BasicGame.Game.prototype = {
 
     update: function () {
         // Check controls, update bacteria movement
-        cursors = this.game.input.keyboard.createCursorKeys();
+        var cursors = this.game.input.keyboard.createCursorKeys();
 
         var bacteriaVelocityX = 0;
         var bacteriaVelocityY = 0;
+
+
+        //todo: Idan velocity should come from an entity property [acceleration]
         if (cursors.left.isDown)
         {
             //  Move to the left
@@ -101,9 +105,13 @@ BasicGame.Game.prototype = {
             this.bacterias[i].velocity = {x: bacteriaVelocityX, y: bacteriaVelocityY};
 
             // TEMP
-            this.bacterias[i].x = this.bacterias[i].x + 1 / 60 * this.bacterias[i].velocity.x;
-            this.bacterias[i].y = this.bacterias[i].y + 1 / 60 * this.bacterias[i].velocity.y;
+            this.bacterias[i].x = this.bacterias[i].x + 1 / this.FPS * this.bacterias[i].velocity.x;
+            this.bacterias[i].y = this.bacterias[i].y + 1 / this.FPS * this.bacterias[i].velocity.y;
         }
+
+        //emit macrophage
+        var score = 1;
+        this.emitter.updateProgress(score);
 
         // Move all entities
 
