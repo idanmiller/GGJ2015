@@ -174,7 +174,7 @@ BasicGame.Game.prototype = {
 
     acquireReceptor: function() {
         for (var i = 0; i < this.bacterias.length; i++) {
-            this.bacterias[i].collectReceptor();
+            this.bacterias[i].acquireReceptor();
         }
     },
 
