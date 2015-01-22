@@ -64,7 +64,6 @@ BasicGame.Game.prototype = {
         var bacteria = new Bacteria(this.game, this.config, 100, 100, "bacteria_idle");
         bacteria.animations.add('bacteria_idle');
         bacteria.animations.play('bacteria_idle', 10, true);
-        bacteria.collisionRadius = 80;
         this.game.add.existing(bacteria);
         this.bacterias.push(bacteria);
 
