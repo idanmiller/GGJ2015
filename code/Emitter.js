@@ -46,7 +46,7 @@ Emitter.prototype.emitMacrophage = function(score) {
 };
 
 Emitter.prototype.emitReceptor = function(score) {
-    var secondsBeforeCreation = 15;
+    var secondsBeforeCreation = 30;
     var fps = this.fps;
     var factor  = (secondsBeforeCreation*fps) ;
     if(this.numberOfReceptors){
