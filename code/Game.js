@@ -71,6 +71,23 @@ BasicGame.Game.prototype = {
             bacteriaVelocityY = 150;   
         }
 
+        if (this.game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
+            console.log("HERERERER");
+            this.newBacterias = [];
+            for (var i = 0; i < this.bacterias.length; i++) {            
+                var bacteria = this.bacterias[i];
+                var newBacterias = bacteria.split();
+                bacteria.kill();
+
+                for (var j = 0; j < newBacterias.length; j++) {
+                    this.game.add.existing(newBacterias[j]);
+                    this.newBacterias.push(newBacterias[j]);
+                }
+            }
+
+            this.bacterias = this.newBacterias;
+        }
+
         for (var i = 0; i < this.bacterias.length; i++) {
             this.bacterias[i].velocity = {x: bacteriaVelocityX, y: bacteriaVelocityY};
 
