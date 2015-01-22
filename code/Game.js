@@ -42,7 +42,8 @@ BasicGame.Game.prototype = {
         this.bacterias = [];
         this.macrophages = [];
 
-        this.game.add.sprite(0, 0, "background");
+        //this.game.add.sprite(0, 0, "background");
+        this.bgtile = this.game.add.tileSprite(0, 0, 960, 600, 'background');
 
         var bacteria = new Bacteria(this.game, this.config, 100, 100, "bacteria_idle");
         bacteria.animations.add('bacteria_idle');
@@ -151,6 +152,12 @@ BasicGame.Game.prototype = {
                 this.gameWon("you_won");
             }
 
+
+            //move background
+            this.bgtile.x-=0.1;
+            if(this.bgtile.x<=-960){
+                this.bgtile.x=960;
+            }
             // Check game end: no bacterias, or enough bacterias
         }
     },
