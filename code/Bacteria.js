@@ -24,22 +24,30 @@ Bacteria.prototype.resetMovementParameters = function() {
 
 Bacteria.prototype.acquireReceptor = function() {
 	this.receptorLevel++;
-	var receptorResource = "receptor_" + this.receptorLevel;
-	this.addChild(this.game.make.sprite(this.width/2-this.width/4, -this.height/2-this.height/7.5, receptorResource))
+	this.receptorResource = "receptor_" + this.receptorLevel;
+	this.addChild(this.game.make.sprite(this.width/4, -this.height/2-this.height/7.5, this.receptorResource ))
 },
 
 Bacteria.prototype.split = function(stopFunction, context) {
 	var splitter = this.game.add.sprite(this.x, this.y, 'bacteria_split');
+	splitter.scale.setTo(0.8, 0.8);
 	var animation = splitter.animations.add('bacteria_split');
 	splitter.animations.play('bacteria_split', 10, false);
-	animation.onComplete.add(stopFunction, context);
+	animation.onComplete.add(stopFunction, context, splitter);
 
-	var first  = new Bacteria(this.game, this.config, this.x, this.y-40, this.resource);
-	var second = new Bacteria(this.game, this.config, this.x, this.y+40, this.resource);
+	var first  = new Bacteria(this.game, this.config, splitter.x+40, splitter.y+70, this.resource);
+	var second = new Bacteria(this.game, this.config, splitter.x+40, splitter.y+150, this.resource);
+	this.inheritReceptors(this, first);
+	this.inheritReceptors(this, second);
 	first.scale.setTo(0.8, 0.8);
 	second.scale.setTo(0.8, 0.8);
 
 	return [first, second];
+};
+
+Bacteria.prototype.inheritReceptors = function(src, dest) {
+	dest.receptorLevel = src.receptorLevel;
+	dest.addChild(this.game.make.sprite(this.width/4, -this.height/2-this.height/7.5, src.receptorResource));
 };
 
 Bacteria.prototype.calculateAcceleration = function (cursors) {
