@@ -1,6 +1,5 @@
 CircularEntity = function(game, config, x, y, resource) {
     Phaser.Sprite.call(this, game, x, y, resource);
-    this.collisionRadius = collisionRadius;
 };
 
 CircularEntity.prototype = Object.create(Phaser.Sprite.prototype);
