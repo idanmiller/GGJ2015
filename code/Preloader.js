@@ -27,7 +27,7 @@ BasicGame.Preloader.prototype = {
 		this.load.image('bacteria', 'images/bacteria_0.png');
 		this.load.image('macrophage', 'images/macrophage.png');
 		//this.load.atlas('playButton', 'images/play_button.png', 'images/play_button.json');
-		//this.load.audio('titleMusic', ['audio/main_menu.mp3']);
+		this.load.audio('gameMusic', ['audio/jerms_game.mp3']);
 		//this.load.bitmapFont('caslon', 'fonts/caslon.png', 'fonts/caslon.xml');
 		//	+ lots of other required assets here
 
