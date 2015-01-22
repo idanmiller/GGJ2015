@@ -31,6 +31,7 @@ BasicGame.Game.prototype = {
     create: function () {
         // Create initial bacteria
         this.bacterias = [];
+        this.macrophages = [];
 
         var bacteria = new Bacteria(this.game, 100, 100, "bacteria", 50);
         this.game.add.existing(bacteria);
@@ -50,6 +51,7 @@ BasicGame.Game.prototype = {
         this.game.add.existing(macrophage);
 
         macrophage.findTarget(bacteria);
+        this.macrophages.push(macrophage);
     },
 
     update: function () {
@@ -118,8 +120,20 @@ BasicGame.Game.prototype = {
         // Check walls collision
 
         // Check bacteria and macrofag collision
+        for (var i = this.bacterias[i].length - 1; i >= 0; i--) {
+            var bacteria = this.bacterias[i];
 
-        // Check game end: no bacterias, 
+            for (var j = 0; j < this.macrophages.length; j++) {
+                var macrophage = this.macrophages[j];
+
+                if (bacteria.collidesWith(macrophage)) {
+                    //TODO: Check if there is a match in receptors...
+                    bacteria.kill();
+                }
+            }
+        }
+
+        // Check game end: no bacterias, or enough bacterias
     },
 
     quitGame: function (pointer) {
