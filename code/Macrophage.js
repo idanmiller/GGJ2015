@@ -1,4 +1,4 @@
-Macrophage = function (game, config, x, y, strategy,emitter, startingPosition) {
+Macrophage = function (game, config, x, y, strategy,emitter, receptorLevel) {
     this.type = "Macrophage";
     CircularEntity.call(this, game, config, 900, -0, "macrophage");
     this.game = game;
@@ -9,6 +9,7 @@ Macrophage = function (game, config, x, y, strategy,emitter, startingPosition) {
     this.strategy = strategy;
     this.emitter = emitter;
     this.radius = 250;
+    this.receptorLevel =receptorLevel;
 
 };
 
@@ -53,6 +54,16 @@ Macrophage.prototype.update = function () {
     this.x += this.velocityX;
     this.y += this.velocityY;
 };
+
+Macrophage.prototype.checkBacteria = function (targetBacteria) {
+    if(this.receptorLevel > targetBacteria.receptorLevel ){
+        return true;
+    }
+    return false;
+
+
+}
+
 
 Macrophage.prototype.destroyMe = function () {
     this.emitter.killMacrophage(this);
