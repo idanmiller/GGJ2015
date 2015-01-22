@@ -1,4 +1,5 @@
 Bacteria = function(game, x, y, resource, collisionRadius) {
+	this.type = "Bacteria";
     CircularEntity.call(this, game, x, y, resource, collisionRadius);
 };
 
