@@ -1,0 +1,124 @@
+{"frames": [
+
+{
+	"filename": "bacteria_movement_01.png",
+	"frame": {"x":2,"y":521,"w":194,"h":104},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":194,"h":104},
+	"sourceSize": {"w":194,"h":104}
+},
+{
+	"filename": "bacteria_movement_02.png",
+	"frame": {"x":285,"y":2,"w":223,"h":87},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":223,"h":87},
+	"sourceSize": {"w":223,"h":87}
+},
+{
+	"filename": "bacteria_movement_03.png",
+	"frame": {"x":2,"y":106,"w":253,"h":54},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":253,"h":54},
+	"sourceSize": {"w":253,"h":54}
+},
+{
+	"filename": "bacteria_movement_04.png",
+	"frame": {"x":2,"y":58,"w":263,"h":46},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":263,"h":46},
+	"sourceSize": {"w":263,"h":46}
+},
+{
+	"filename": "bacteria_movement_05.png",
+	"frame": {"x":2,"y":2,"w":281,"h":54},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":281,"h":54},
+	"sourceSize": {"w":281,"h":54}
+},
+{
+	"filename": "bacteria_movement_06.png",
+	"frame": {"x":2,"y":162,"w":250,"h":96},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":250,"h":96},
+	"sourceSize": {"w":250,"h":96}
+},
+{
+	"filename": "bacteria_movement_07.png",
+	"frame": {"x":267,"y":91,"w":220,"h":108},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":220,"h":108},
+	"sourceSize": {"w":220,"h":108}
+},
+{
+	"filename": "bacteria_movement_08.png",
+	"frame": {"x":254,"y":201,"w":203,"h":127},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":203,"h":127},
+	"sourceSize": {"w":203,"h":127}
+},
+{
+	"filename": "bacteria_movement_09.png",
+	"frame": {"x":2,"y":392,"w":196,"h":127},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":196,"h":127},
+	"sourceSize": {"w":196,"h":127}
+},
+{
+	"filename": "bacteria_movement_10.png",
+	"frame": {"x":2,"y":260,"w":198,"h":130},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":198,"h":130},
+	"sourceSize": {"w":198,"h":130}
+},
+{
+	"filename": "bacteria_movement_11.png",
+	"frame": {"x":202,"y":330,"w":196,"h":131},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":196,"h":131},
+	"sourceSize": {"w":196,"h":131}
+},
+{
+	"filename": "bacteria_movement_12.png",
+	"frame": {"x":200,"y":463,"w":194,"h":134},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":194,"h":134},
+	"sourceSize": {"w":194,"h":134}
+},
+{
+	"filename": "bacteria_movement_13.png",
+	"frame": {"x":198,"y":599,"w":192,"h":133},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":192,"h":133},
+	"sourceSize": {"w":192,"h":133}
+},
+{
+	"filename": "bacteria_movement_14.png",
+	"frame": {"x":2,"y":627,"w":184,"h":137},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":184,"h":137},
+	"sourceSize": {"w":184,"h":137}
+}],
+"meta": {
+	"app": "http://www.codeandweb.com/texturepacker ",
+	"version": "1.0",
+	"image": "bacteria_movement.png",
+	"format": "RGBA8888",
+	"size": {"w":512,"h":1024},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:c1b8ccc06c57a308789d358b68f0715a:6c6fa2ef47fa7aa162a5364592b48571:797ab4dbb6dcca2a9045abe346703ab9$"
+}
+}

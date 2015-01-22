@@ -27,6 +27,7 @@ BasicGame.Preloader.prototype = {
 		this.load.image('bacteria', 'images/bacteria_0.png');
 		this.load.atlas('bacteria_idle', 'images/bacteria_idle.png', 'bacteria_idle.json' );
 		this.load.atlas('bacteria_split', 'images/bacteria_split.png', 'bacteria_split.json' );
+		this.load.atlas('bacteria_movement', 'images/bacteria_movement.png', 'bacteria_movement.json' );
 		this.load.image('macrophage', 'images/Macrophage_0.png');
 		this.load.image('dialog', 'images/selection_dialog_frame.png');
 		this.load.image('startDialog', 'images/hit_space_to_play.png');

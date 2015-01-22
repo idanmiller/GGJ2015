@@ -1,9 +1,9 @@
 var BACTERIA_BASE_VELOCITY = 130;
 var BACTERIA_MAX_VELOCITY = 400;
 var BACTERIA_ACCELERATION_DELTA = 5; //TODO random acceleration (swarm)
-var BACTERIA_SPLIT_OFFSET_X = 60;
-var BACTERIA_SPLIT_OFFSET_Y = 65;
-var BACTERIA_SPLIT_DISTANCE = 80;
+var BACTERIA_SPLIT_OFFSET_X = 75;
+var BACTERIA_SPLIT_OFFSET_Y = 80;
+var BACTERIA_SPLIT_DISTANCE = 100;
 
 Bacteria = function(game, config, x, y, resource) {
 	this.type = "Bacteria";
@@ -47,7 +47,7 @@ Bacteria.prototype.split = function(stopFunction, context) {
 	var offsetY = BACTERIA_SPLIT_OFFSET_Y * scale;
 	var distance = BACTERIA_SPLIT_DISTANCE * scale;
 	var first  = new Bacteria(this.game, this.config, splitter.x+offsetX, splitter.y+offsetY, this.resource);
-	var second = new Bacteria(this.game, this.config, splitter.x+offsetX, splitter.y+distance, this.resource);
+	var second = new Bacteria(this.game, this.config, splitter.x+offsetX, splitter.y+offsetY+distance, this.resource);
 	this.inheritReceptors(this, first);
 	this.inheritReceptors(this, second);
 	first.scale.setTo(scale, scale);
