@@ -1,6 +1,6 @@
 var BACTERIA_BASE_VELOCITY = 130;
 var BACTERIA_MAX_VELOCITY = 400;
-var BACTERIA_ACCELERATION_DELTA = 5;
+var BACTERIA_ACCELERATION_DELTA = 5; //TODO random acceleration (swarm)
 
 Bacteria = function(game, config, x, y, resource) {
 	this.type = "Bacteria";
@@ -21,7 +21,7 @@ Bacteria.prototype.resetMovementParameters = function() {
 }
 
 Bacteria.prototype.split = function() {
-	var first = new Bacteria(this.game, this.x, this.y-20, this.key, this.collisionRadius);
+	var first  = new Bacteria(this.game, this.x, this.y-20, this.key, this.collisionRadius);
 	var second = new Bacteria(this.game, this.x, this.y+20, this.key, this.collisionRadius);
 	first.scale.setTo(0.8, 0.8);
 	second.scale.setTo(0.8, 0.8);
@@ -51,12 +51,12 @@ Bacteria.prototype.calculateVelocity = function (cursors) {
 	if (cursors.right.isDown)
     {
         //  Move to the right
-        this.velocityX = BACTERIA_BASE_VELOCITY + this.accelerationX;;   
+        this.velocityX = BACTERIA_BASE_VELOCITY + this.accelerationX;
     }
     if (cursors.up.isDown)
     {
         //  Move up
-        this.velocityY = -BACTERIA_BASE_VELOCITY + this.accelerationY;   
+        this.velocityY = -BACTERIA_BASE_VELOCITY + this.accelerationY;  
     }
 
     if (cursors.down.isDown)
@@ -69,7 +69,21 @@ Bacteria.prototype.calculateVelocity = function (cursors) {
     }
 };
 
-Bacteria.prototype.update = function() {
-	this.x += 1 / this.config.fps * this.velocityX;
-	this.y += 1 / this.config.fps * this.velocityY;
+Bacteria.prototype.update = function() {	
+	var x = expectedX = this.x + 1 / this.config.fps * this.velocityX;
+	var y = expectedY = this.y + 1 / this.config.fps * this.velocityY;
+	if (expectedX > this.game.width - this.width/2) {
+		x = this.game.width - this.width/2;
+	}
+	if (expectedX < 0 + this.width/2) {
+		x = 0 + this.width/2;
+	}
+	if (expectedY > this.game.height - this.height/2) {
+		y = this.game.height - this.height/2;
+	}
+	if (expectedY < 0 + this.height/2) {
+		y = 0 + this.height/2;
+	}
+	this.x = x;
+	this.y = y;
 };
