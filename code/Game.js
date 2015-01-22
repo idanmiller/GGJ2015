@@ -53,7 +53,7 @@ BasicGame.Game.prototype = {
         // TEMP just emit a macrophage every 3 seconds
         //this.game.time.events.loop(Phaser.Timer.SECOND * 3, this.addMacrophage, this);
         //this.game.time.events.loop(Phaser.Timer.SECOND * 3, this.addReceptor, this);
-        //this.addReceptor();
+        this.addReceptor();
 
         this.game.time.events.loop(Phaser.Timer.SECOND * 30, this.addScore, this);
 
@@ -78,10 +78,14 @@ BasicGame.Game.prototype = {
         this.game.add.existing(this.receptor);
     },
 
-    showDecisionDialog: function() {
+    showDecisionDialog: function(level) {
         this.isDeciding = true;
-        this.dialog = new Dialog(this.game, this.config, "dialog");
+        this.dialog = new DecisionDialog(this.game, this.config, level);
         this.game.add.existing(this.dialog);
+
+        for (var i = 0; i < this.bacterias.length; i++) {
+            this.bacterias[i].resetMovementParameters();
+        }
     },
 
     dimsissDecisionDialog: function() {
@@ -135,7 +139,7 @@ BasicGame.Game.prototype = {
                     if (bacteria.collidesWith(this.receptor)) {
                         this.receptor.kill();
                         this.receptor = null;
-                        this.showDecisionDialog();
+                        this.showDecisionDialog(bacteria.receptorLevel);
                     }
                 }
             }

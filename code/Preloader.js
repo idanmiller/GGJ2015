@@ -32,6 +32,17 @@ BasicGame.Preloader.prototype = {
 		this.load.image('background', 'images/background.png');
 		this.load.image('you_won', 'images/you_won.png');
 		this.load.image('you_lost', 'images/you_lost.png');
+		this.load.image('split_button', 'images/selection_split_normal.png');
+		this.load.image('receptor_button1', 'images/dialog_receptor_1_normal.png');
+		this.load.image('receptor_button2', 'images/dialog_receptor_2_normal.png');
+		this.load.image('receptor_button3', 'images/dialog_receptor_3_normal.png');
+		this.load.image('receptor_button4', 'images/dialog_receptor_4_normal.png');
+		this.load.image('receptor_button5', 'images/dialog_receptor_5_normal.png');
+		this.load.image('receptor_button6', 'images/dialog_receptor_6_normal.png');
+		this.load.image('receptor_button7', 'images/dialog_receptor_7_normal.png');
+		this.load.image('receptor_button8', 'images/dialog_receptor_8_normal.png');
+		this.load.image('receptor_button9', 'images/dialog_receptor_9_normal.png');
+		this.load.image('receptor_button10', 'images/dialog_receptor_10_normal.png');
 		//this.load.atlas('playButton', 'images/play_button.png', 'images/play_button.json');
 		this.load.audio('gameMusic', ['audio/jerms_game.mp3']);
 		//this.load.bitmapFont('caslon', 'fonts/caslon.png', 'fonts/caslon.xml');
