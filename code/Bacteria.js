@@ -8,6 +8,7 @@ Bacteria = function(game, config, x, y, resource) {
     this.game = game;
     this.config = config;
     this.resetMovementParameters();
+    this.receptorLevel = 0;
 };
 
 Bacteria.prototype = Object.create(CircularEntity.prototype);
