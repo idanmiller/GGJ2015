@@ -4,6 +4,7 @@ var BACTERIA_ACCELERATION_DELTA = 5; //TODO random acceleration (swarm)
 var BACTERIA_SPLIT_OFFSET_X = 75;
 var BACTERIA_SPLIT_OFFSET_Y = 80;
 var BACTERIA_SPLIT_DISTANCE = 100;
+var BACTERIA_RADIUS = 50;
 
 Bacteria = function(game, config, x, y, resource) {
 	this.type = "Bacteria";
@@ -12,6 +13,7 @@ Bacteria = function(game, config, x, y, resource) {
     this.config = config;
     this.resource = resource;
     this.receptorLevel = 0;
+    this.collisionRadius = BACTERIA_RADIUS;
     this.resetMovementParameters();
 };
 
@@ -29,7 +31,7 @@ Bacteria.prototype.acquireReceptor = function() {
 	if(this.receptor){
 		this.removeChild(this.receptor);
 	}
-	this.receptorLevel++;
+	this.receptorLevel = this.receptorLevel == 10 ? 10 : this.receptorLevel+1;
 	this.receptorResource = "receptor_" + this.receptorLevel;
 	this.receptor =this.game.make.sprite(this.width/4, -this.height/2-this.height/7.5, this.receptorResource );
 	this.addChild(this.receptor);
@@ -54,6 +56,9 @@ Bacteria.prototype.split = function(stopFunction, context) {
 	this.inheritReceptors(this, second);
 	first.scale.setTo(scale, scale);
 	second.scale.setTo(scale, scale);
+
+	var sound = this.game.add.audio('split');
+    sound.play();
 
 	return [first, second];
 };
