@@ -27,6 +27,6 @@ Emitter.prototype.createMacrophage = function(score) {
     console.log("Factor:"+factor);
     console.log("Result:"+lottoResult);
     if (lottoResult<=factor){
-        alert("create macrophage now");
+        //alert("create macrophage now");
     }
 }

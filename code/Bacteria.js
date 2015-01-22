@@ -12,4 +12,4 @@ Bacteria.prototype.split = function() {
 	first.scale.setTo(0.8, 0.8);
 	second.scale.setTo(0.8, 0.8);
 	return [first, second];
-}; 
+};
