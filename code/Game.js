@@ -34,6 +34,7 @@ BasicGame.Game.prototype = {
 
     create: function () {
         // Create initial bacteria
+        this.isDeciding = false;
         this.bacterias = [];
         this.macrophages = [];
 
@@ -64,82 +65,92 @@ BasicGame.Game.prototype = {
         // Check controls, update bacteria movement
         var cursors = this.game.input.keyboard.createCursorKeys();
 
-        var bacteriaVelocityX = 0;
-        var bacteriaVelocityY = 0;
+        if (this.isDeciding) {
+            if (cursors.left.isDown) {
+                this.isDeciding = false;
+            }
+
+            if (cursors.right.isDown) {
+                this.isDeciding = false;
+            }
+        } else {
+            var bacteriaVelocityX = 0;
+            var bacteriaVelocityY = 0;
 
 
-        //todo: Idan velocity should come from an entity property [acceleration]
-        if (cursors.left.isDown)
-        {
-            //  Move to the left
-            bacteriaVelocityX = -150;
-        }
+            //todo: Idan velocity should come from an entity property [acceleration]
+            if (cursors.left.isDown)
+            {
+                //  Move to the left
+                bacteriaVelocityX = -150;
+            }
 
-        if (cursors.right.isDown)
-        {
-            //  Move to the right
-            bacteriaVelocityX = 150;   
-        }
+            if (cursors.right.isDown)
+            {
+                //  Move to the right
+                bacteriaVelocityX = 150;   
+            }
 
-        if (cursors.up.isDown)
-        {
-            //  Move up
-            bacteriaVelocityY = -150;   
-        }
+            if (cursors.up.isDown)
+            {
+                //  Move up
+                bacteriaVelocityY = -150;   
+            }
 
-        if (cursors.down.isDown)
-        {
-            //  Move down
-            bacteriaVelocityY = 150;   
-        }
+            if (cursors.down.isDown)
+            {
+                //  Move down
+                bacteriaVelocityY = 150;   
+            }
 
-        if (this.game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
-            this.newBacterias = [];
-            for (var i = 0; i < this.bacterias.length; i++) {            
+            for (var i = 0; i < this.bacterias.length; i++) {
+                this.bacterias[i].velocity = {x: bacteriaVelocityX, y: bacteriaVelocityY};
+
+                // TEMP
+                this.bacterias[i].x = this.bacterias[i].x + 1 / this.FPS * this.bacterias[i].velocity.x;
+                this.bacterias[i].y = this.bacterias[i].y + 1 / this.FPS * this.bacterias[i].velocity.y;
+            }
+
+            //emit macrophage
+            var score = 1;
+            this.emitter.updateProgress(score);
+
+            // Move all entities
+
+            // Check walls collision
+
+            // Check bacteria and macrofag collision
+            /*for (var i = this.bacterias.length - 1; i >= 0; i--) {
                 var bacteria = this.bacterias[i];
-                var newBacterias = bacteria.split();
-                bacteria.kill();
 
-                for (var j = 0; j < newBacterias.length; j++) {
-                    this.game.add.existing(newBacterias[j]);
-                    this.newBacterias.push(newBacterias[j]);
+                for (var j = 0; j < this.macrophages.length; j++) {
+                    var macrophage = this.macrophages[j];
+
+                    if (bacteria.collidesWith(macrophage)) {
+                        //TODO: Check if there is a match in receptors...
+                        bacteria.kill();
+                    }
                 }
-            }
+            }*/
 
-            this.bacterias = this.newBacterias;
+            // Check game end: no bacterias, or enough bacterias
         }
+    },
 
-        for (var i = 0; i < this.bacterias.length; i++) {
-            this.bacterias[i].velocity = {x: bacteriaVelocityX, y: bacteriaVelocityY};
-
-            // TEMP
-            this.bacterias[i].x = this.bacterias[i].x + 1 / this.FPS * this.bacterias[i].velocity.x;
-            this.bacterias[i].y = this.bacterias[i].y + 1 / this.FPS * this.bacterias[i].velocity.y;
-        }
-
-        //emit macrophage
-        var score = 1;
-        this.emitter.updateProgress(score);
-
-        // Move all entities
-
-        // Check walls collision
-
-        // Check bacteria and macrofag collision
-        /*for (var i = this.bacterias.length - 1; i >= 0; i--) {
+    splitAllBacterias: function() {
+        this.newBacterias = [];
+        for (var i = 0; i < this.bacterias.length; i++) {            
             var bacteria = this.bacterias[i];
+            var newBacterias = bacteria.split();
+            bacteria.kill();
 
-            for (var j = 0; j < this.macrophages.length; j++) {
-                var macrophage = this.macrophages[j];
-
-                if (bacteria.collidesWith(macrophage)) {
-                    //TODO: Check if there is a match in receptors...
-                    bacteria.kill();
-                }
+            for (var j = 0; j < newBacterias.length; j++) {
+                this.game.add.existing(newBacterias[j]);
+                this.newBacterias.push(newBacterias[j]);
             }
-        }*/
+        }
 
-        // Check game end: no bacterias, or enough bacterias
+        this.bacterias = this.newBacterias;
     },
 
     quitGame: function (pointer) {
