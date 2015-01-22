@@ -1,3 +1,4 @@
+var gamePaused = false;
 
 BasicGame.Game = function (game) {
 
@@ -79,6 +80,7 @@ BasicGame.Game.prototype = {
 
     showDecisionDialog: function(level) {
         this.isDeciding = true;
+        gamePaused = true;
         this.dialog = new DecisionDialog(this.game, this.config, level);
         this.game.add.existing(this.dialog);
 
@@ -88,6 +90,7 @@ BasicGame.Game.prototype = {
     },
 
     dimsissDecisionDialog: function() {
+        gamePaused = false;
         this.isDeciding = false;
         this.dialog.kill();
     },
