@@ -23,7 +23,7 @@ BasicGame.Game = function (game) {
     //GameJame Init
     this.FPS = 60;
     this.config = {fps:this.FPS, strategies:{ default :'Default',chase:'Chase'} };
-    this.emitter = new Emitter(game,this.config);
+    this.emitter = new Emitter(game,this,this.config);
 
     //  You can use any of these from any function within this State.
     //  But do consider them as being 'reserved words', i.e. don't create a property for your own game called "world" or you'll over-write the world reference.
@@ -45,18 +45,16 @@ BasicGame.Game.prototype = {
 
         // Start and init emitter
         // TEMP just emit a macrophage every 3 seconds
-        this.game.time.events.loop(Phaser.Timer.SECOND * 3, this.addMacrophage, this);
+        //this.game.time.events.loop(Phaser.Timer.SECOND * 3, this.addMacrophage, this);
 
         this.music = this.add.audio("gameMusic");
         this.music.play();
     },
 
-    addMacrophage: function() {
+    addMacrophage: function(macrophage) {
         var bacteria = this.bacterias[Math.floor(Math.random()*this.bacterias.length)];
-        var macrophage = new Macrophage(this.game, this.config, 700, 100, "macrophage", 50, 140);
         macrophage.collisionRadius = 80;
         this.game.add.existing(macrophage);
-
         macrophage.findTarget(bacteria);
         this.macrophages.push(macrophage);
     },

@@ -1,10 +1,11 @@
 var SCORE_LEVEL_FACTOR = 150;
 
-Emitter = function(game,config) {
+Emitter = function(game,gameContext,config) {
     this.stepCount=0;
     this.game = game;
     this.fps = config.fps;
-    this.config =this.config;
+    this.config = config;
+    this.gameContext = gameContext;
 };
 
 Emitter.prototype = Object.create(Phaser.Sprite.prototype);
@@ -27,10 +28,15 @@ Emitter.prototype.emmitMacrophage = function(score) {
     var factor  = (secondsBeforeCreation*fps) ;
     var lottoResult = Math.floor(Math.random() * factor) + 1;
     if (lottoResult >= factor-1){
-        console.log("create macrophage");
+       this.createMacrophage();
     }
-}
+};
 
-Emitter.prototype.createMacrophage = function(score) {
-   var macro = new Macrophage(this.game,0,0,"macrophage",this.config.default)
-}
+Emitter.prototype.createMacrophage = function() {
+    console.log("Emitter is creating a Macrophage");
+    var macro = new Macrophage(this.game,0,0,"macrophage",this.config.strategies.default);
+    this.gameContext.addMacrophage(macro);
+
+
+
+};
