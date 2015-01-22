@@ -56,7 +56,6 @@ BasicGame.Game.prototype = {
         this.startScreen = new Dialog(this.game, this.config, "startDialog");
         this.game.add.existing(this.startScreen);
 
-        this.game.time.events.loop(Phaser.Timer.SECOND * 25, this.addScore, this);
         this.music = this.add.audio('menuMusic',1,true);
         this.music.play('',0,1,true);
     },
@@ -76,7 +75,7 @@ BasicGame.Game.prototype = {
         //this.game.time.events.loop(Phaser.Timer.SECOND * 3, this.addReceptor, this);
 
         this.music.stop();
-        this.game.time.events.loop(Phaser.Timer.SECOND * 30, this.addScore, this);
+        this.game.time.events.loop(Phaser.Timer.SECOND * 15, this.addScore, this);
         this.music = this.add.audio('gameMusic',1,true);
         this.music.play('',0,1,true);
     },
@@ -87,7 +86,6 @@ BasicGame.Game.prototype = {
 
     addMacrophage: function(macrophage) {
         var bacteria = this.bacterias[Math.floor(Math.random()*this.bacterias.length)];
-        macrophage.collisionRadius = 80;
         this.game.add.existing(macrophage);
         macrophage.findTarget(bacteria);
         this.macrophages.push(macrophage);

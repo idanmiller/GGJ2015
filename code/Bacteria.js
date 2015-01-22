@@ -6,9 +6,9 @@ var BACTERIA_SPLIT_OFFSET_Y = 80;
 var BACTERIA_SPLIT_DISTANCE = 100;
 var BACTERIA_RADIUS = 50;
 
-Bacteria = function(game, config, x, y, resource) {
+Bacteria = function(game, config, x, y, resource,scale) {
 	this.type = "Bacteria";
-    CircularEntity.call(this, game, config, x, y, resource);
+    CircularEntity.call(this, game, config, x, y, resource,scale);
     this.game = game;
     this.config = config;
     this.resource = resource;
@@ -50,12 +50,15 @@ Bacteria.prototype.split = function(stopFunction, context) {
 	var offsetX = BACTERIA_SPLIT_OFFSET_X * scale;
 	var offsetY = BACTERIA_SPLIT_OFFSET_Y * scale;
 	var distance = BACTERIA_SPLIT_DISTANCE * scale;
-	var first  = new Bacteria(this.game, this.config, splitter.x+offsetX, splitter.y+offsetY, this.resource);
-	var second = new Bacteria(this.game, this.config, splitter.x+offsetX, splitter.y+offsetY+distance, this.resource);
+	var first  = new Bacteria(this.game, this.config, splitter.x+offsetX, splitter.y+offsetY, this.resource,scale);
+	var second = new Bacteria(this.game, this.config, splitter.x+offsetX, splitter.y+offsetY+distance, this.resource,scale);
 	this.inheritReceptors(this, first);
 	this.inheritReceptors(this, second);
 	first.scale.setTo(scale, scale);
-	second.scale.setTo(scale, scale);
+	first.scale.setTo(scale, scale);
+
+			//first.scale.setTo(scale, scale);
+	//second.scale.setTo(scale, scale);
 
 	var sound = this.game.add.audio('split');
     sound.play();
