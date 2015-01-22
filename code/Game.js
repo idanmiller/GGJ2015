@@ -176,10 +176,13 @@ BasicGame.Game.prototype = {
                 }
 
                 // Check bacteria and receptor collision
-                if (this.bacterias.length == 0) {
-                    this.gameOver("you_lost");
-                } else if (this.bacterias.length > 100) {
-                    this.gameWon("you_won");
+                if (!this.lostGame) {
+                    if (this.bacterias.length == 0) {
+                        this.gameOver(true);
+                        //this.gameOver(false);
+                    } else if (this.bacterias.length > 100) {
+                        this.gameWon(true);
+                    }
                 }
             }
 
@@ -193,10 +196,15 @@ BasicGame.Game.prototype = {
         }
     },
 
-    gameOver: function(dialogFrame) {
-        var dialog = new Dialog(this.game, this.config, dialogFrame);
-        this.game.add.existing(dialog)
+    gameOver: function(didWon) {
+        FadeTarget = 0;
         this.lostGame = true;
+        this.music.stop();
+
+        if (didWon) {
+            var sound = this.game.add.audio('gameWon');
+            sound.play();
+        }
     },
 
     splitAllBacterias: function() {

@@ -72,6 +72,8 @@ BasicGame.Preloader.prototype = {
 		this.load.audio('powerupAppear', ['audio/power_up_appear.mp3']);
 		this.load.audio('powerupConfirm', ['audio/power_up_confirm.mp3']);
 		this.load.audio('powerupTaken', ['audio/power_up_taken.mp3']);
+		this.load.audio('die', ['audio/jerm_die.mp3']);
+		this.load.audio('gameWon', ['audio/patient_die.mp3']);
 		this.load.audio('split', ['audio/split.mp3']);
 
 		//this.load.bitmapFont('caslon', 'fonts/caslon.png', 'fonts/caslon.xml');
