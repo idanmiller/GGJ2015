@@ -32,7 +32,6 @@ Bacteria.prototype.acquireReceptor = function () {
         this.removeChild(this.receptor);
     }
     this.receptorLevel = Math.min( 10 , this.receptorLevel+1 );
-    this.receptorLevel = this.receptorLevel == 10 ? 10 : this.receptorLevel + 1;
     this.receptorResource = "receptor_" + this.receptorLevel;
     this.receptor = this.game.make.sprite(this.width/2, 0, this.receptorResource);
     this.receptor.anchor.setTo(0.5, 0.5);
