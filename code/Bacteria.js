@@ -45,7 +45,10 @@ Bacteria.prototype.acquireReceptor = function () {
         splitter.scale.setTo(scale, scale);
         var animation = splitter.animations.add('bacteria_split');
         splitter.animations.play('bacteria_split', 10, false);
-        animation.onComplete.add(stopFunction, context, splitter);
+
+        if (stopFunction != null) {
+        	animation.onComplete.add(stopFunction, context, splitter);
+        }
 
         var offsetX = BACTERIA_SPLIT_OFFSET_X * scale;
         var offsetY = BACTERIA_SPLIT_OFFSET_Y * scale;

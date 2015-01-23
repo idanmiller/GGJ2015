@@ -218,7 +218,14 @@ BasicGame.Game.prototype = {
         this.newBacterias = [];
         for (var i = 0; i < this.bacterias.length; i++) {            
             var bacteria = this.bacterias[i];
-            this.newBacterias = bacteria.split(this.afterSplitAnimation, this);
+
+            if (i == this.bacterias.length - 1) {
+                this.newBacterias = this.newBacterias.concat(bacteria.split(this.afterSplitAnimation, this));
+            } else {
+                this.newBacterias = this.newBacterias.concat(bacteria.split(null, null));
+            }
+
+            
             bacteria.kill();
         }
     },
