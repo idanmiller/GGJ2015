@@ -112,7 +112,8 @@ Bacteria.prototype.calculateVelocity = function (cursors) {
 
 Bacteria.prototype.calculateSwarmAcceleration = function (mother) {
     var collide = CircularEntity.prototype.collidesWith.call(this, mother);
-    swarm_acceleration = 1;
+    var distance = CircularEntity.prototype.getDistance.call(this, mother);
+    var swarm_acceleration = distance/20;
     if (collide) {
         if (mother.x < this.x) {
             this.accelerationX = swarm_acceleration * 2;
