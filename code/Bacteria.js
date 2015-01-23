@@ -34,7 +34,7 @@ Bacteria.prototype.acquireReceptor = function () {
     this.receptorLevel = Math.min( 10 , this.receptorLevel+1 );
     this.receptorResource = "receptor_" + this.receptorLevel;
     this.receptor = this.game.make.sprite(this.width/2, 0, this.receptorResource);
-    this.receptor.anchor.setTo(0.5, 0.5);
+    this.receptor.anchor.setTo(0.2, 0.5);
     this.addChild(this.receptor);
 },
 
@@ -79,7 +79,7 @@ Bacteria.prototype.inheritReceptors = function (src, dest) {
     dest.receptorLevel = src.receptorLevel;
     dest.receptorResource = src.receptorResource;
     dest.receptor = this.game.make.sprite(this.width/2, 0, dest.receptorResource);
-    dest.receptor.anchor.setTo(0.5, 0.5);
+    dest.receptor.anchor.setTo(0.2, 0.5);
     dest.addChild(dest.receptor);
     
 };
