@@ -144,10 +144,10 @@ BasicGame.Game.prototype = {
             } else {
                 if(this.bacterias.length) {
                     this.bacterias[0].calculateAcceleration(cursors);
-                    this.bacterias[0].calculateVelocity(cursors);
-                    this.bacterias[0].calculateRotation(cursors);
+                    this.bacterias[0].calculateVelocity(cursors);                    
                     for (var i = 1; i < this.bacterias.length; i++) {
                         var bacteria = this.bacterias[i];
+                        bacteria.calculateSwarmRotation(cursors);
                         bacteria.calculateSwarmAcceleration(this.bacterias[0]);
                         bacteria.calculateSwarmVelocity(this.bacterias[0]);
                     }
