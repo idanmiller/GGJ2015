@@ -113,7 +113,7 @@ Bacteria.prototype.calculateVelocity = function (cursors) {
     }
 };
 
-Bacteria.prototype.calculateRotation = function (cursors) {
+Bacteria.prototype.calculateSwarmRotation = function (cursors) {
 	if (this.velocityX > 0 && this.velocityY < 0) { 
 		this.rotation = -0.78;
 	}
