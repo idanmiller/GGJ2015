@@ -27,17 +27,7 @@ CircularEntity.prototype.update = function() {
         this.alpha -=SacleFactor;
     }
 
-    if(this.alpha < ScaleTarget){
+    if(this.alpha < FadeTarget){
         this.alpha +=SacleFactor;
-    }
-
-    if(this.currentScale > ScaleTarget){
-        this.currentScale -=SacleFactor;
-        this.scale.setTo(this.currentScale,this.currentScale);
-    }
-
-    if(this.scale < ScaleTarget){
-        this.currentScale +=SacleFactor;
-        this.scale.setTo(this.currentScale,this.currentScale);
     }
 };

@@ -170,7 +170,13 @@ BasicGame.Game.prototype = {
                         var macrophage = this.macrophages[j];
                         if (bacteria.collidesWith(macrophage)&&macrophage.checkBacteria(bacteria)) {
                             //TODO: Check if there is a match in receptors...
-                            bacteria.kill();
+                            var tween = this.game.add.tween(bacteria.scale);
+                            tween.to({ x: 0.0, y: 0.0 }, 300);
+                            tween._onCompleteCallback = function() {
+                                bacteria.kill();
+                            }; 
+                            tween.start();
+                            //bacteria.kill();
                             this.bacterias.splice(i, 1);
                         }
                     }
@@ -192,13 +198,19 @@ BasicGame.Game.prototype = {
                 if (!this.lostGame) {
                     if (this.bacterias.length == 0) {
                         this.gameOver(false);
+                        setTimeout(function() {
+                            window.location.reload();
+                        }, 2000);
                     } else if (this.bacterias.length > 100) {
                         this.gameOver(true);
                     }
                 }else{
-                    var tween = game.add.tween(this.bgtile);
-                    tween.to({ alpha: 0.0 }, 600);
-                    tween.start();    
+                    this.fadeOut(this.bgtile);
+                    this.fadeOut(this.receptor);
+
+                    for (var i = 0; i < this.macrophages.length; i++) {
+                        this.fadeOut(this.macrophages[i]);
+                    }
                 }
             }
 
@@ -209,6 +221,14 @@ BasicGame.Game.prototype = {
                 this.bgtile.x=0;
             }
             // Check game end: no bacterias, or enough bacterias
+        }
+    },
+
+    fadeOut: function(sprite) {
+        if (sprite) {
+            var tween = this.game.add.tween(sprite);
+            tween.to({ alpha: 0.0 }, 600);
+            tween.start();
         }
     },
 
@@ -234,7 +254,6 @@ BasicGame.Game.prototype = {
                 this.newBacterias = this.newBacterias.concat(bacteria.split(null, null));
             }
 
-            
             bacteria.kill();
         }
     },
