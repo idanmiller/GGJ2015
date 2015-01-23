@@ -68,11 +68,11 @@ BasicGame.Game.prototype = {
         bacteria.animations.play('bacteria_idle', 10, true);
         this.game.add.existing(bacteria);
         this.bacterias.push(bacteria);
-         var bacteria1 = new Bacteria(this.game, this.config, 200, 200, "bacteria_idle");
-        bacteria1.animations.add('bacteria_idle');
-        bacteria1.animations.play('bacteria_idle', 10, true);
-        this.game.add.existing(bacteria1);
-        this.bacterias.push(bacteria1);
+        //  var bacteria1 = new Bacteria(this.game, this.config, 200, 200, "bacteria_idle");
+        // bacteria1.animations.add('bacteria_idle');
+        // bacteria1.animations.play('bacteria_idle', 10, true);
+        // this.game.add.existing(bacteria1);
+        // this.bacterias.push(bacteria1);
 
         // Start and init itter
         // TEMP just emit a macrophage every 3 seconds
@@ -142,17 +142,15 @@ BasicGame.Game.prototype = {
                     this.acquireReceptor();
                 }
             } else {
-                if(this.bacterias.length) {
-                    this.bacterias[0].calculateAcceleration(cursors);
-                    this.bacterias[0].calculateVelocity(cursors);
-                    for (var i = 1; i < this.bacterias.length; i++) {
-                        var bacteria = this.bacterias[i];
-                        bacteria.calculateSwarmAcceleration(this.bacterias[0]);
-                        bacteria.calculateSwarmVelocity(this.bacterias[0]);
-                    }
-                    if (!this.lostGame) {
-                        this.emitter.updateProgress(this.score);
-                    }
+                this.bacterias[0].calculateAcceleration(cursors);
+                this.bacterias[0].calculateVelocity(cursors);
+                for (var i = 1; i < this.bacterias.length; i++) {
+                    var bacteria = this.bacterias[i];
+                    bacteria.calculateSwarmAcceleration(this.bacterias[0]);
+                    bacteria.calculateSwarmVelocity(this.bacterias[0]);
+                }
+                if(!this.lostGame) {
+                    this.emitter.updateProgress(this.score);
                 }
                 // Move all entities
 
@@ -187,11 +185,14 @@ BasicGame.Game.prototype = {
                 // Check bacteria and receptor collision
                 if (!this.lostGame) {
                     if (this.bacterias.length == 0) {
-                        this.gameOver(true);
-                        //this.gameOver(false);
+                        this.gameOver(false);
                     } else if (this.bacterias.length > 100) {
-                        this.gameWon(true);
+                        this.gameOver(true);
                     }
+                }else{
+                    var tween = game.add.tween(this.bgtile);
+                    tween.to({ alpha: 0.0 }, 600);
+                    tween.start();    
                 }
             }
 
@@ -233,7 +234,6 @@ BasicGame.Game.prototype = {
     },
 
     afterSplitAnimation: function(splitter) {
-        splitter.kill();
         for (var j = 0; j < this.newBacterias.length; j++) {
             var newBacteria = this.newBacterias[j];
             this.game.add.existing(newBacteria);
