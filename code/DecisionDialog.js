@@ -3,7 +3,7 @@ DecisionDialog = function(game, config, receptorLevel) {
     this.receptorLevel = receptorLevel;
 
     var splitButton = game.add.sprite(-102, -50, 
-		"receptor_button" + (this.receptorLevel + 1 + 1).toString());
+		"receptor_button" + (Math.min(this.receptorLevel  + 1,10)).toString());
 	var duplicateButton = game.add.sprite(20, -50, "split_button");
 
     var style = {font: "16pt Arial", fill: "#C0EAFF", align: "center"};
