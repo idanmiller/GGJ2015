@@ -46,6 +46,7 @@ Bacteria.prototype.acquireReceptor = function () {
         var animation = splitter.animations.add('bacteria_split');
         splitter.animations.play('bacteria_split', 10, false);
 
+        animation.onComplete.add(this.killSplitter, this, splitter);
         if (stopFunction != null) {
         	animation.onComplete.add(stopFunction, context, splitter);
         }
@@ -58,7 +59,7 @@ Bacteria.prototype.acquireReceptor = function () {
         this.inheritReceptors(this, first);
         this.inheritReceptors(this, second);
         first.scale.setTo(scale, scale);
-        first.scale.setTo(scale, scale);
+        second.scale.setTo(scale, scale);
 
         //first.scale.setTo(scale, scale);
         //second.scale.setTo(scale, scale);
@@ -68,6 +69,10 @@ Bacteria.prototype.acquireReceptor = function () {
 
         return [first, second];
     };
+
+    Bacteria.prototype.killSplitter = function (splitter) {
+    	splitter.kill();
+    }
 
 Bacteria.prototype.inheritReceptors = function (src, dest) {
     dest.receptorLevel = src.receptorLevel;
