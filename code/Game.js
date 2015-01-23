@@ -142,12 +142,18 @@ BasicGame.Game.prototype = {
                     this.acquireReceptor();
                 }
             } else {
-                this.bacterias[0].calculateAcceleration(cursors);
-                this.bacterias[0].calculateVelocity(cursors);
-                for (var i = 1; i < this.bacterias.length; i++) {
-                    var bacteria = this.bacterias[i];
-                    bacteria.calculateSwarmAcceleration(this.bacterias[0]);
-                    bacteria.calculateSwarmVelocity(this.bacterias[0]);
+                if(this.bacterias.length) {
+                    this.bacterias[0].calculateAcceleration(cursors);
+                    this.bacterias[0].calculateVelocity(cursors);
+                    this.bacterias[0].calculateRotation(cursors);
+                    for (var i = 1; i < this.bacterias.length; i++) {
+                        var bacteria = this.bacterias[i];
+                        bacteria.calculateSwarmAcceleration(this.bacterias[0]);
+                        bacteria.calculateSwarmVelocity(this.bacterias[0]);
+                    }
+                    if (!this.lostGame) {
+                        this.emitter.updateProgress(this.score);
+                    }
                 }
                 if(!this.lostGame) {
                     this.emitter.updateProgress(this.score);

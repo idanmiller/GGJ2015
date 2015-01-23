@@ -118,6 +118,34 @@ Bacteria.prototype.calculateVelocity = function (cursors) {
     }
 };
 
+Bacteria.prototype.calculateRotation = function (cursors) {
+	if (this.velocityX > 0 && this.velocityY < 0) { 
+		this.rotation = -0.78;
+	}
+	else if (this.velocityX > 0 && this.velocityY > 0) { 
+		this.rotation = 0.78;
+	}
+	else if (this.velocityX < 0 && this.velocityY > 0) { 
+		this.rotation = 2.35;
+	}
+	else if (this.velocityX < 0 && cursors.up.isDown) { 
+		this.rotation = 3.92;
+	}
+	else if (this.velocityX < 0) {
+		this.rotation = 3.14;
+	}
+	else if (this.velocityX > 0 && this.velocityY == 0) {
+		this.rotation = 0;
+	}
+	else if (this.velocityY < 0) {
+		this.rotation = -1.57;
+	}
+	else if (this.velocityY > 0) {
+		this.rotation = 1.57;
+	}
+};
+
+
 Bacteria.prototype.calculateSwarmAcceleration = function (mother) {
     var collide = CircularEntity.prototype.collidesWith.call(this, mother);
     var distance = CircularEntity.prototype.getDistance.call(this, mother);
