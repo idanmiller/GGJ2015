@@ -13,17 +13,14 @@ BasicGame.Preloader.prototype = {
 	preload: function () {
 
 		//	These are the assets we loaded in Boot.js
-		//	A nice sparkly background and a loading progress bar
-		//this.background = this.add.sprite(0, 0, 'preloaderBackground');
-		//this.preloadBar = this.add.sprite(300, 400, 'preloaderBar');
+		//	A nice sparkly background and a loading progress preloadBar
+		this.preloadBar = this.add.sprite(280, 150, 'preloaderBar');
 
 		//	This sets the preloadBar sprite as a loader sprite.
 		//	What that does is automatically crop the sprite from 0 to full-width
 		//	as the files below are loaded in.
-		//this.load.setPreloadSprite(this.preloadBar);
+		this.load.setPreloadSprite(this.preloadBar);
 
-		//	Here we load the rest of the assets our game needs.
-		//	As this is just a Project Template I've not provided these assets, swap them for your own.
 		this.load.image('bacteria', 'images/bacteria_0.png');
 		this.load.atlas('bacteria_idle', 'images/bacteria_idle.png', 'bacteria_idle.json' );
 		this.load.atlas('bacteria_split', 'images/bacteria_split.png', 'bacteria_split.json' );
@@ -66,7 +63,6 @@ BasicGame.Preloader.prototype = {
 		this.load.image('receptor_button8', 'images/dialog_receptor_8_normal.png');
 		this.load.image('receptor_button9', 'images/dialog_receptor_9_normal.png');
 		this.load.image('receptor_button10', 'images/dialog_receptor_10_normal.png');
-		//this.load.atlas('playButton', 'images/play_button.png', 'images/play_button.json');
 		this.load.audio('gameMusic', ['audio/jerms_game.mp3']);
 		this.load.audio('menuMusic', ['audio/menu_music.mp3']);
 		this.load.audio('powerupAppear', ['audio/power_up_appear.mp3']);
@@ -75,9 +71,6 @@ BasicGame.Preloader.prototype = {
 		this.load.audio('die', ['audio/jerm_die.mp3']);
 		this.load.audio('gameWon', ['audio/patient_die.mp3']);
 		this.load.audio('split', ['audio/split.mp3']);
-
-		//this.load.bitmapFont('caslon', 'fonts/caslon.png', 'fonts/caslon.xml');
-		//	+ lots of other required assets here
 
 	},
 
@@ -104,7 +97,7 @@ BasicGame.Preloader.prototype = {
 			this.ready = true;
 			this.state.start('MainMenu');
 		}*/
-		this.state.start('MainMenu');
+		this.state.start('Game');
 
 	}
 
